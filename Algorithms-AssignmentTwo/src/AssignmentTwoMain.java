@@ -31,6 +31,7 @@ public class AssignmentTwoMain {
         ArrayList<String> magicitems = readFromFile("magicitems.txt");
         System.out.println(Arrays.toString(magicitems.toArray()));
         System.out.println("\n");
+
         selectionSort(magicitems);
 
         ArrayList<String> magicitems1 = readFromFile("magicitems.txt");
@@ -41,10 +42,15 @@ public class AssignmentTwoMain {
         //Merge sort done in different way than insertion and selection since utilizes 2 functions
         // to divide and conquer so prints comparisons and list out here to show sorted
         System.out.println("Merge Sort : Comparisons = " + mergeCounter);
-        System.out.println(Arrays.toString(magicitems.toArray()));
+        System.out.println(Arrays.toString(magicitems2.toArray()));
 
-        ArrayList<String> magicitems3 = readFromFile("sort.txt");
-        quickSort(magicitems3);
+        //Quick sort also done in differnet way than insertion and selection because quicksort function called multiple times
+        //similarly to that of merge sort so printing done in main
+        ArrayList<String> magicitems3 = readFromFile("magicitems.txt");
+        int n = magicitems3.size();
+        quickSort(magicitems3,0, n-1);
+        System.out.println("Quick Sort : Comparisons = " + quickCounter);
+        System.out.println(Arrays.toString(magicitems3.toArray()));
 
 
     }
@@ -118,7 +124,7 @@ public class AssignmentTwoMain {
             magicitems.set(j+1, value1);
 
         }//for
-        System.out.println("Insertion Sort : Comparisons = " + insertionCounter);
+        System.out.println("Insertion Sort : Comparisons = " + insertionCounter+ "*****************");
         System.out.println(Arrays.toString(magicitems.toArray()));
     }//insertionSort
 
@@ -129,21 +135,23 @@ public class AssignmentTwoMain {
         ArrayList<String> left = new ArrayList<String>();
         ArrayList<String> right = new ArrayList<String>();
 
-        if (magicitems.size() == 1) {
+        if (magicitems.size() <= 1) {
             return magicitems;
         }//if list only one item in array
 
         else {
             //take the center of the array and break down into left and right, sort left and right halves and continue
-            //divide and conquer then merge together
+            //divide and conquer then merge together. Merge Function is used for actual merges of the right, left, and full arrays.
+            //It compares and makes sure that all is merged in proper order checking for remaining elements and those that have been used up
+            //as well as there index's
 
             center = magicitems.size()/2;
 
             //add items to each sections
-            for (int i=0; i<center; i++) {
+            for (int i = 0; i < center; i++) {
                 left.add(magicitems.get(i));
             }
-            for (int i=center; i<magicitems.size(); i++) {
+            for (int i = center; i < magicitems.size(); i++) {
                 right.add(magicitems.get(i));
             }
 
@@ -166,7 +174,7 @@ public class AssignmentTwoMain {
 
         //As long as the left and right elements of the array remain or have not been "used up"
         while (leftIndex < left.size() && rightIndex < right.size()) {
-            if ( (left.get(leftIndex).compareTo(right.get(rightIndex))) < 0) {
+            if ( (left.get(leftIndex).compareToIgnoreCase(right.get(rightIndex))) < 0) {
                 magicitems.set(magicItemsIndex, left.get(leftIndex));
                 leftIndex++;
             }
@@ -177,8 +185,6 @@ public class AssignmentTwoMain {
             magicItemsIndex++;
             mergeCounter++;
         }
-
-
         ArrayList<String> remain;
         int remainIndex;
         //if the left array has been fully used up remaining is the right, else the remaining is the left
@@ -192,23 +198,53 @@ public class AssignmentTwoMain {
         }//else
 
         // Copy the remaining array items that have not been fully used up
-        for (int i=remainIndex; i<remain.size(); i++) {
+        for (int i = remainIndex; i < remain.size(); i++) {
             magicitems.set(magicItemsIndex, remain.get(i));
             magicItemsIndex++;
         }
-    }
+    }//merge
 
-    public static void quickSort(ArrayList<String> magicitems) {
-        System.out.println("Quick Sort : Comparisons = " + quickCounter);
-        System.out.println(Arrays.toString(magicitems.toArray()));
+    public static void quickSort(ArrayList<String> magicitems, int low, int high) {
+
+        //low/high and smallerthan/greaterthan are same variables being passed around just named differently
+        //low is the starting index, high is the ending index. Each is either smallerthan or greaterthan the pivot point
+        if(low < high){
+            //part is the partition index
+            int part = partition(magicitems, low, high);
+
+            //Sort the elements before and after the partition
+            quickSort(magicitems, low, (part - 1)); //before
+            quickSort(magicitems, (part+1), high); //after
+        }
+
+
     }//quickSort
 
+    public static int partition(ArrayList<String> magicitems, int smallerThan, int greaterThan){
+        String pivot = magicitems.get(greaterThan);
+        int i = (smallerThan-1); //represents the index of the smaller element
+        for(int j = smallerThan; j < greaterThan; j++){
+            //if the current element is smaller than the pivot, performs a swap
+            if(magicitems.get(j).compareToIgnoreCase(pivot) < 0){
+                i++;
 
+                String temp = magicitems.get(i);
+                magicitems.set(i,magicitems.get(j));
+                magicitems.set(j, temp);
 
+                quickCounter++;
+            }
+        }
+    //swaps magicitems[i+1] and magicitems[greaterThan](or pivot)
+        String temp = magicitems.get(i+1);
+        magicitems.set(i+1, magicitems.get(greaterThan));
+        magicitems.set(greaterThan, temp);
 
-
-
-
+        return i+1;
+    }
+    //partition - this function takes the last element as a pivot point and places the pivot element
+    //as the correct position in the final sorted magicitems array.
+    //It then places all elements smaller than the pivot to the left and all greater than to the right
 
 
 
