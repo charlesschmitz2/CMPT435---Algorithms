@@ -112,6 +112,10 @@ public class AssignmentTwoMain {
     }
 
     public static void insertionSort(ArrayList<String> magicitems) {
+
+        //list sorted one items at a time, not very efficient compared to merge and quicksort
+        //loops through the size of the array, within that another while loop is used to compare the element to the other elements
+        //and sort into proper location
         for(int i = 1; i < magicitems.size(); i++) {
             String value1 = magicitems.get(i);
 
@@ -124,7 +128,9 @@ public class AssignmentTwoMain {
             magicitems.set(j+1, value1);
 
         }//for
-        System.out.println("Insertion Sort : Comparisons = " + insertionCounter+ "*****************");
+
+
+        System.out.println("Insertion Sort : Comparisons = " + insertionCounter);
         System.out.println(Arrays.toString(magicitems.toArray()));
     }//insertionSort
 
