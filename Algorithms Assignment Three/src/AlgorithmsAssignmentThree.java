@@ -92,16 +92,23 @@ public class AlgorithmsAssignmentThree {
             String searchBinary = "";
             int result2 = 0;
             int totalComparisons2 = 0;
+            int start = 0;
+            int stop = magicitems.length-1;
+            int binaryIndex = binarySearch(magicitems, start, stop, randomMagicItems[0]);
+        System.out.println(randomMagicItems[0]);
 
+        System.out.println(binaryIndex);
+
+            /*
             for(int i = 0; i < randomMagicItems.length; i++){
                 searchBinary = randomMagicItems[i];
-
+System.out.println(searchBinary);
                 result2 = binarySearch(magicitems, 0, magicitems.length-1, searchBinary);
-                //int temp2 = result2[2];
-                //totalComparisons2 = totalComparisons2 + temp2;
+                int temp2 = result2[2];
+                totalComparisons2 = totalComparisons2 + temp2;
 System.out.println(result2);
 
-                if(result2 == -1) {
+                    if(result2 == -1) {
                     System.out.println("\nThe Element '" + searchBinary + "' was NOT Found in the Array");
                     //System.out.println("Comparisons: " + temp2);
                 }//if
@@ -109,7 +116,7 @@ System.out.println(result2);
                     System.out.println("\nThe Element '"+ searchBinary + "' was Found at Key " + result2);
                 }//else
             }//for
-
+*/
             System.out.println("\nTotal Number of Comparisons: " + totalComparisons2);
             System.out.println("\nAverage Number of Comparisons (Total/42): " + totalComparisons2/42);
 
@@ -214,34 +221,26 @@ System.out.println(result2);
 
     //Binary Search Function
     public static int binarySearch(String[] arr, int start, int stop, String search){
+       System.out.println(start);
+        System.out.println(stop);
 
-        //int ans = -1;
+        if(start > stop){
+            return -1;
+        }//if
 
-        while(start <= stop){
-            int midPoint = (start+stop)/2;
-            int result = search.compareToIgnoreCase(arr[midPoint]);
-          //Testing
-            System.out.println("start - " + start);
-            System.out.println("stop - " +stop);
-            System.out.println("midpoint - " +midPoint);
-            System.out.println("result - " +result);
-            System.out.println("-----");
+        int midPoint = start + (stop-start) / 2;
+        System.out.println(midPoint);
+        System.out.println("--");
 
-        //Is search at the midpoint
-            if(result == 0){
-                return midPoint;
-            }//if
-        //Is search greater than the midpoint
-            if(result > 0){
-                start = midPoint + 1;
-            }//else
-        //Is search smaller than the midpoint
-            else{
-                stop = midPoint - 1;
-            }//else
-        }//while
-System.out.println("maybe");
-        return -1;
+        if(search.equalsIgnoreCase(arr[midPoint])){
+            return midPoint;
+        }//if
+        else if(search.compareToIgnoreCase(arr[midPoint]) < 0){
+            return binarySearch(arr, start, midPoint - 1, search);
+        }
+        else{
+            return binarySearch(arr, midPoint + 1, stop, search);
+        }
 
     }//BinarySearch
 
