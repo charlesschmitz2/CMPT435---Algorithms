@@ -1,0 +1,8 @@
+hello
+howdy
+boo
+apple
+grape
+tangerine
+beet
+apple
