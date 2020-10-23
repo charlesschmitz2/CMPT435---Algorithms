@@ -7,8 +7,14 @@ import java.util.Scanner;
 
 public class AlgorithmsAssignmentThree {
 
+    private static int totalComparisonsBinarySearch;
+    private static int tempComparisonsBinarySearch;
 
     public static void main(String[] args){
+
+        System.out.println("\nEach time the program is run there will be 42 random items selected from the magicitems list, these selections will be different each run:");
+        System.out.println("Linear Search searches through an UNSORTED magicitems list to find the randomly selected items (Could be sorted if you want but does not need to be)");
+        System.out.println("Binary Search searches through a SORTED magicitems list to find the randomly selected items");
 
         //Declare Variables, in this case the strings that will be used throughout main
         String[] magicitems = readArray("magicitems.txt");
@@ -35,21 +41,23 @@ public class AlgorithmsAssignmentThree {
 
                 randomMagicItems[i]= temp2;
             }
-
+        /* Prints out all of the randomly selected items
             System.out.println("\n--------Randomly Selected 42 Elements in Array-------- ");
             for (int i = 0; i < randomMagicItems.length; i++){
-                System.out.println(randomMagicItems[i]);
+                System.out.print(randomMagicItems[i] + ", ");
             }//for
-
-        //Taken from Assignment two, adapted from arrayList to work with arrays. Using quicksort
+        */
+        //Taken from Assignment two, adapted from arrayList to work with arrays. Using quicksort. Magicitems remains unsorted
             int n = randomMagicItems.length;
             quickSort(randomMagicItems, 0, n-1);
+        /* Prints out all the random items in sorted order
             System.out.println("\n--------Sorted Array-----------");
             for (int i = 0; i < randomMagicItems.length; i++){
-                System.out.println(randomMagicItems[i]);
+                System.out.print(randomMagicItems[i] + ", ");
             }//for
-
-        //Linear Search
+        */
+        //Linear Search - Here I have a sorted randomMagicItems array and an unsorted magicitems array. I am searching for each of the randomly selected items
+        //within the larger magicitems array which again is unsorted.
 
             // Using Scanner for Getting Input from User so have the option to search for whatever individual items if desired
             System.out.println("\n\n--------Linear Search-----------");
@@ -67,11 +75,11 @@ public class AlgorithmsAssignmentThree {
                 totalComparisons = totalComparisons + temp;
 
                 if(result[0] == 1) {
-                    System.out.println("\nThe Element '" + searchLinear + "' was Found at Key " + result[1]);
-                    System.out.println("Comparisons: " + temp);
+                    System.out.println("\n\tThe Element '" + searchLinear + "' was Found at Key " + result[1]);
+                    System.out.println("\tComparisons: " + temp);
                 }//if
                 else{
-                    System.out.println("\nThe Element '"+ searchLinear + "' was NOT Found in the Array");
+                    System.out.println("\n\tThe Element '"+ searchLinear + "' was NOT Found in the Array");
                 }//else
             }//for
 
@@ -81,7 +89,7 @@ public class AlgorithmsAssignmentThree {
 
 
 
-        //Binary Search
+        //Binary Search - Here I have the same sorted randomMagicItems, but now I have to sort the full magicitems array in order to perform a binary search within it.
 
             // Using Scanner for Getting Input from User so have the option to search for whatever individual items if desired
             System.out.println("\n\n--------Binary Search-----------");
@@ -89,36 +97,37 @@ public class AlgorithmsAssignmentThree {
             //Scanner in00 = new Scanner(System.in);
             //String searchBinary = in00.nextLine();
 
+        //sorting the magic items array to be used in binary search
+                int m = magicitems.length;
+                quickSort(magicitems, 0, m-1);
+
+
             String searchBinary = "";
-            int result2 = 0;
-            int totalComparisons2 = 0;
             int start = 0;
             int stop = magicitems.length-1;
-            int binaryIndex = binarySearch(magicitems, start, stop, randomMagicItems[0]);
-        System.out.println(randomMagicItems[0]);
 
-        System.out.println(binaryIndex);
 
-            /*
             for(int i = 0; i < randomMagicItems.length; i++){
                 searchBinary = randomMagicItems[i];
-System.out.println(searchBinary);
+                int result2 = 0;
+                tempComparisonsBinarySearch = 0;
                 result2 = binarySearch(magicitems, 0, magicitems.length-1, searchBinary);
-                int temp2 = result2[2];
-                totalComparisons2 = totalComparisons2 + temp2;
-System.out.println(result2);
 
                     if(result2 == -1) {
                     System.out.println("\nThe Element '" + searchBinary + "' was NOT Found in the Array");
-                    //System.out.println("Comparisons: " + temp2);
                 }//if
                 else{
-                    System.out.println("\nThe Element '"+ searchBinary + "' was Found at Key " + result2);
+                    result2 = result2+1;
+                        //adding a + 1 to the index key simply because we know that the list is 0-665 but in a text document or to an avg
+                        //person the list of magicitems goes from 1-666.
+                    System.out.println("\n\tThe Element '"+ searchBinary + "' was Found at Key " + result2);
+                    System.out.println("\tComparisons: " + tempComparisonsBinarySearch);
+
                 }//else
             }//for
-*/
-            System.out.println("\nTotal Number of Comparisons: " + totalComparisons2);
-            System.out.println("\nAverage Number of Comparisons (Total/42): " + totalComparisons2/42);
+
+            System.out.println("\nTotal Number of Comparisons: " + totalComparisonsBinarySearch);
+            System.out.println("\nAverage Number of Comparisons (Total/42): " + totalComparisonsBinarySearch/42);
 
 
 
@@ -221,24 +230,30 @@ System.out.println(result2);
 
     //Binary Search Function
     public static int binarySearch(String[] arr, int start, int stop, String search){
-       System.out.println(start);
-        System.out.println(stop);
 
         if(start > stop){
+            tempComparisonsBinarySearch++;
+            totalComparisonsBinarySearch++;
             return -1;
         }//if
 
+        //could round or take floor or ceiling of midpoint, I did't explicitly do that here but it seems to calculate it correctly
+        //so im just going to leave it as is
         int midPoint = start + (stop-start) / 2;
-        System.out.println(midPoint);
-        System.out.println("--");
 
         if(search.equalsIgnoreCase(arr[midPoint])){
+            tempComparisonsBinarySearch++;
+            totalComparisonsBinarySearch++;
             return midPoint;
         }//if
         else if(search.compareToIgnoreCase(arr[midPoint]) < 0){
+            tempComparisonsBinarySearch++;
+            totalComparisonsBinarySearch++;
             return binarySearch(arr, start, midPoint - 1, search);
         }
         else{
+            tempComparisonsBinarySearch++;
+            totalComparisonsBinarySearch++;
             return binarySearch(arr, midPoint + 1, stop, search);
         }
 
