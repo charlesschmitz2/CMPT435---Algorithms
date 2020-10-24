@@ -2,6 +2,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,6 +10,9 @@ public class AlgorithmsAssignmentThree {
 
     private static int totalComparisonsBinarySearch;
     private static int tempComparisonsBinarySearch;
+    private static final int LINES_IN_FILE = 666;
+    private static final int HASH_TABLE_SIZE = 250;
+
 
     public static void main(String[] args){
 
@@ -128,6 +132,26 @@ public class AlgorithmsAssignmentThree {
 
             System.out.println("\nTotal Number of Comparisons: " + totalComparisonsBinarySearch);
             System.out.println("\nAverage Number of Comparisons (Total/42): " + totalComparisonsBinarySearch/42);
+
+
+        System.out.println("\n\n--------Hashing-----------");
+        int[] hashValues = new int[magicitems.length];
+        // Print the array and hash values.
+        int hashCode = 0;
+        for (int i = 0; i < magicitems.length; i++) {
+            System.out.print(i);
+            System.out.print(". " + magicitems[i] + " - ");
+            hashCode = makeHashCode(magicitems[i]);
+            System.out.format("%03d%n", hashCode);
+            hashValues[i] = hashCode;
+        }
+
+        // Analyze the distribution of hash values.
+        analyzeHashValues(hashValues);
+
+        HashTable<String> hashMap = new HashTable<String>(HASH_TABLE_SIZE);
+
+
 
 
 
@@ -259,8 +283,102 @@ public class AlgorithmsAssignmentThree {
 
     }//BinarySearch
 
+    private static int makeHashCode(String str) {
+        str = str.toUpperCase();
+        int length = str.length();
+        int letterTotal = 0;
 
-    //Quicksort and partion functions taken from assignment two using array's instead of array list
+        // Iterate over all letters in the string, totalling their ASCII values.
+        for (int i = 0; i < length; i++) {
+            char thisLetter = str.charAt(i);
+            int thisValue = (int)thisLetter;
+            letterTotal = letterTotal + thisValue;
+
+            // Test: print the char and the hash.
+
+           System.out.print(" [");
+           System.out.print(thisLetter);
+           System.out.print(thisValue);
+           System.out.print("] ");
+           //
+            }
+
+        // Scale letterTotal to fit in HASH_TABLE_SIZE.
+        int hashCode = (letterTotal * 1) % HASH_TABLE_SIZE;  // % is the "mod" operator
+        // TODO: Experiment with letterTotal * 2, 3, 5, 50, etc.
+
+        return hashCode;
+        }//makeHashCode
+
+    private static void analyzeHashValues(int[] hashValues) {
+        System.out.println("\nHash Table Usage:");
+
+        // Sort the hash values.
+        Arrays.sort(hashValues);    // This is a "dual-pivot" quicksort
+                                    // See https://zgrepcode.com/java/oracle/jdk-8u181/java/util/dualpivotquicksort.java
+                                    // Actually, look at that JDK source code; it's a bunch of sorts.
+
+        // Test: print the sorted hash values.
+        /*
+56         for (int i=0; i < LINES_IN_FILE; i++) {
+57            System.out.println(hashValues[i]);
+58         }
+59      // */
+
+        // Create a histogram-like report based on the count of each unique hash value,
+        // count the individual entry size,
+        // the total space used (in items),
+        // and the standard deviation of their distribution over the hash table.
+        int asteriskCount = 0;
+        int[] bucketCount = new int[HASH_TABLE_SIZE];
+        int totalCount = 0;
+        int arrayIndex = 0;
+
+        for (int i=0; i < HASH_TABLE_SIZE; i++) {
+            System.out.format("%03d ", i);
+            asteriskCount = 0;
+            while ( (arrayIndex < LINES_IN_FILE) && (hashValues[arrayIndex] == i) ) {
+                System.out.print("*");
+                asteriskCount = asteriskCount + 1;
+                arrayIndex = arrayIndex + 1;
+                }
+            System.out.print(" ");
+            System.out.println(asteriskCount);
+            bucketCount[i] = asteriskCount;
+            totalCount = totalCount + asteriskCount;
+        }
+
+        System.out.print("Average load (count): ");
+        float averageLoad = (float) totalCount / HASH_TABLE_SIZE;
+        System.out.format("%.2f%n", averageLoad);
+
+        System.out.print("Average load (calc) : ");
+        averageLoad = (float) LINES_IN_FILE / HASH_TABLE_SIZE;
+        System.out.format("%.2f%n", averageLoad);
+
+        System.out.print("Standard Deviation: ");
+        // TODO: Refactor this into its own method.
+        double sum = 0;
+        for (int i=0; i < HASH_TABLE_SIZE; i++) {
+            // For each value in the array...
+            // ... subtract the mean from each one ...
+            double result = bucketCount[i] - averageLoad;
+            // ... and square the result.
+            double square = result * result;
+            // Sum all of those squares.
+            sum = sum + square;
+        }
+        // Divide the sum by the number of values ...
+        double temp = sum / HASH_TABLE_SIZE;
+        // ... and take the square root of that.
+        double stdDev = Math.sqrt(temp);
+        System.out.format("%.2f%n", stdDev);
+    }
+
+
+
+
+    //Quicksort and partition functions taken from assignment two using array's instead of array list
     public static void quickSort(String arr[], int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
