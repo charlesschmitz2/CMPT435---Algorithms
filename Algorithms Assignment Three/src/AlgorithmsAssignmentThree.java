@@ -1,10 +1,8 @@
 import java.io.*;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.HashMap;
 
 public class AlgorithmsAssignmentThree {
 
@@ -149,7 +147,14 @@ public class AlgorithmsAssignmentThree {
         // Analyze the distribution of hash values.
         analyzeHashValues(hashValues);
 
-        HashTable<String> hashMap = new HashTable<String>(HASH_TABLE_SIZE);
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(000,"Dimensional shackles" );
+        hashMap.put(000,"Eyes of petrification");
+        System.out.println(hashMap);
+        System.out.println(hashMap.get(000));
+
+
+
 
 
 
@@ -283,6 +288,8 @@ public class AlgorithmsAssignmentThree {
 
     }//BinarySearch
 
+
+
     private static int makeHashCode(String str) {
         str = str.toUpperCase();
         int length = str.length();
@@ -301,6 +308,8 @@ public class AlgorithmsAssignmentThree {
            System.out.print(thisValue);
            System.out.print("] ");
            //
+
+
             }
 
         // Scale letterTotal to fit in HASH_TABLE_SIZE.
