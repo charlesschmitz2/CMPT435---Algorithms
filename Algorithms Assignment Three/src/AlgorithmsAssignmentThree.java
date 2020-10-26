@@ -135,23 +135,54 @@ public class AlgorithmsAssignmentThree {
         System.out.println("\n\n--------Hashing-----------");
         int[] hashValues = new int[magicitems.length];
         // Print the array and hash values.
-        int hashCode = 0;
-        for (int i = 0; i < magicitems.length; i++) {
-            System.out.print(i);
-            System.out.print(". " + magicitems[i] + " - ");
-            hashCode = makeHashCode(magicitems[i]);
-            System.out.format("%03d%n", hashCode);
-            hashValues[i] = hashCode;
-        }
+            int hashCode = 0;
+            for (int i = 0; i < magicitems.length; i++) {
+                System.out.print(i);
+                System.out.print(". " + magicitems[i] + " - ");
+                hashCode = makeHashCode(magicitems[i]);
+                System.out.format("%03d%n", hashCode);
+                hashValues[i] = hashCode;
+            }
 
         // Analyze the distribution of hash values.
-        analyzeHashValues(hashValues);
+        //analyzeHashValues(hashValues);
 
-        Map<Integer, String> hashMap = new HashMap<>();
-        hashMap.put(000,"Dimensional shackles" );
-        hashMap.put(000,"Eyes of petrification");
-        System.out.println(hashMap);
-        System.out.println(hashMap.get(000));
+        //Initialize the Hash Table
+            HashTable hashTable = new HashTable(HASH_TABLE_SIZE);
+
+        //Functions of the hash table:
+            //hashtable.put(key, value)
+            //hashtable.remove(key)
+            //hashtable.get(key)
+            //hashtable.getSize()
+            //hashtable.empty()
+            //hashtable.printHashTable();
+            //hashtable.makeHashCode(); --> this function is also in the main class if wanted to be used that way but for my needs I found it to be better in
+            //the hast table class. I left it in main because the example given was oriented that way but could be editied a bit better to avoid repetition and
+            //be better organized and implemented
+        //Here I set the key as the string form of the word, example: "Zales Might".
+        //The value represents the value of the hashcode of that String so for "Zales Might", its value would be 42.
+
+        //Adding all of the Magic Items Values into the hash table
+            System.out.print(" ");
+            int hashValues12 = 0;
+
+            for(int i = 0; i < magicitems.length; i++){
+                hashValues12 = hashTable.makeHashCode(magicitems[i]);
+                hashTable.insert(magicitems[i],hashValues12);
+            }
+
+        //Printing out the hash table - Could also use the given Analyze Hash Table Function but I took that function and simplified it down a bit
+        //to have the less of the analyzing and more just printing out the value and key for each bucket.
+        //Each entry is divided by a "|" so it gives a bit more information than just stating how many counts there are at each bucket since that is
+        //already done by you for us in the analyze function so you know how many are at each value but it more so shows you what each value within each linked list
+        //bucket.
+            hashTable.printHashTable();
+
+            System.out.println(" ");
+            System.out.println("Zales Might - " + hashTable.get("Zales Might"));
+
+
 
 
 
@@ -302,13 +333,13 @@ public class AlgorithmsAssignmentThree {
             letterTotal = letterTotal + thisValue;
 
             // Test: print the char and the hash.
-
+/*
            System.out.print(" [");
            System.out.print(thisLetter);
            System.out.print(thisValue);
            System.out.print("] ");
            //
-
+*/
 
             }
 
