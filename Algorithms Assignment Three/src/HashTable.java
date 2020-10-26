@@ -1,101 +1,145 @@
 public class HashTable {
-    private int TABLE_SIZE;
+    private int HASH_TABLE_SIZE;
     private int size;
-    private Entry[] table;
+    private Entry[] hashTable;
+    private int totalComparisons;
+    private int tempComparisons;
 
     /* Constructor */
     public HashTable(int tableSize)
     {
         size = 0;
-        TABLE_SIZE = tableSize;
-        table = new Entry[TABLE_SIZE];
-        for (int i = 0; i < TABLE_SIZE; i++)
-            table[i] = null;
-    }
-    /* Function to get number of key-value pairs */
+        HASH_TABLE_SIZE = tableSize;
+        hashTable = new Entry[HASH_TABLE_SIZE];
+        tempComparisons = 0;
+        totalComparisons = 0;
+        for (int i = 0; i < HASH_TABLE_SIZE; i++)
+            hashTable[i] = null;
+    }//Constructor
+
+    //Gets the size of the HashTable
     public int getSize()
     {
         return size;
-    }
-    /* Function to clear hash table */
+    }//getSize
+
+    //Clears/Empties the hash table by setting all values in it to null, could also be used to initialize all values to null
     public void empty()
     {
-        for (int i = 0; i < TABLE_SIZE; i++)
-            table[i] = null;
-    }
-    /* Function to get value of a key */
+        for (int i = 0; i < HASH_TABLE_SIZE; i++)
+            hashTable[i] = null;
+    }//empty
+
+    //Gets the Value of a Key
     public int get(String key)
     {
-        int hash = (makeHashCode( key ) % TABLE_SIZE);
-        if (table[hash] == null)
+        tempComparisons = 0;
+        int hash = (makeHashCode( key ) % HASH_TABLE_SIZE);
+        if (hashTable[hash] == null) {
+            tempComparisons++;
+            totalComparisons += tempComparisons;
+            System.out.print("Comparisons to Get : " + tempComparisons);
             return -1;
+        }//if
         else
         {
-            Entry entry = table[hash];
-            while (entry != null && !entry.key.equals(key))
+            Entry entry = hashTable[hash];
+            while (entry != null && !entry.key.equals(key)) {
+                tempComparisons++;
                 entry = entry.next;
-            if (entry == null)
-                return -1;
-            else
-                return entry.value;
-        }
-    }
-    /* Function to insert a key value pair */
-    public void insert(String key, int value)
-    {
-        int hash = (makeHashCode( key ) % TABLE_SIZE);
-        if (table[hash] == null)
-            table[hash] = new Entry(key, value);
-        else
-        {
-            Entry entry = table[hash];
-            while (entry.next != null && !entry.key.equals(key))
-                entry = entry.next;
-            if (entry.key.equals(key))
-                entry.value = value;
-            else
-                entry.next = new Entry(key, value);
-        }
-        size++;
-    }
+            }//while
 
+            totalComparisons += tempComparisons;
+
+            if (entry == null) {
+                System.out.print("Comparisons to Get : " + tempComparisons);
+                return -1;
+            }//if
+            else {
+                System.out.print("Comparisons to Get : " + tempComparisons);
+                return entry.value;
+            }//else
+        }//else
+    }//get
+
+    //Inserts a new entry into the hashTable
+    public void put(String key, int value)
+    {
+        int hash = (makeHashCode( key ) % HASH_TABLE_SIZE);
+
+        if (hashTable[hash] == null) {
+            hashTable[hash] = new Entry(key, value);
+        }//if
+        else
+        {
+            Entry entry = hashTable[hash];
+            while (entry.next != null && !entry.key.equals(key)) {
+                entry = entry.next;
+            }//while
+            if (entry.key.equals(key)) {
+                entry.value = value;
+            }//if
+            else {
+                entry.next = new Entry(key, value);
+            }//else
+        }//else
+
+        size++;
+    }//put
+
+    //Removes an entry from the hashTable
     public void remove(String key)
     {
-        int hash = (makeHashCode( key ) % TABLE_SIZE);
-        if (table[hash] != null)
+        int hash = (makeHashCode( key ) % HASH_TABLE_SIZE);
+        if (hashTable[hash] != null)
         {
             Entry prevEntry = null;
-            Entry entry = table[hash];
+            Entry entry = hashTable[hash];
+
             while (entry.next != null && !entry.key.equals(key))
             {
                 prevEntry = entry;
                 entry = entry.next;
-            }
+            }//while
             if (entry.key.equals(key))
             {
-                if (prevEntry == null)
-                    table[hash] = entry.next;
-                else
+                if (prevEntry == null) {
+                    hashTable[hash] = entry.next;
+                }//if
+                else {
                     prevEntry.next = entry.next;
+                }//else
+
                 size--;
-            }
-        }
+            }//if
+        }//if
+    }//remove
+
+    public int getTempComparisons(){
+        return tempComparisons;
+    }
+    public int getTotalComparisons(){
+        return totalComparisons;
     }
 
-    /* Function to print hash table */
+
+    //Prints the entire hashTable out listing the values in each bucket
     public void printHashTable()
     {
-        for (int i = 0; i < TABLE_SIZE; i++)
+        for (int i = 0; i < HASH_TABLE_SIZE; i++)
         {
             System.out.print("\nBucket "+ (i) +" : ");
-            Entry entry = table[i];
+
+            Entry entry = hashTable[i];
+
             while (entry != null)
             {
-                System.out.print(" | " + entry.value + " - " + entry.key + " |");
+                System.out.print(" | **" + entry.value + " - " + entry.key + " |");
                 entry = entry.next;
-            }
-        }
-    }
+            }//while
+        }//for
+    }//printHashTable
+
 
     public int makeHashCode(String str) {
         str = str.toUpperCase();
@@ -119,7 +163,7 @@ public class HashTable {
             //
 */
 
-        }
+        }//for
 
         // Scale letterTotal to fit in HASH_TABLE_SIZE.
         int hashCode = (letterTotal * 1) % 250;  // % is the "mod" operator

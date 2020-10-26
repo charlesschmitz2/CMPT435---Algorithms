@@ -1,6 +1,7 @@
 import java.io.*;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.HashMap;
 
@@ -137,10 +138,10 @@ public class AlgorithmsAssignmentThree {
         // Print the array and hash values.
             int hashCode = 0;
             for (int i = 0; i < magicitems.length; i++) {
-                System.out.print(i);
-                System.out.print(". " + magicitems[i] + " - ");
+                //System.out.print(i);
+                //System.out.print(". " + magicitems[i] + " - ");
                 hashCode = makeHashCode(magicitems[i]);
-                System.out.format("%03d%n", hashCode);
+                //System.out.format("%03d%n", hashCode);
                 hashValues[i] = hashCode;
             }
 
@@ -165,11 +166,11 @@ public class AlgorithmsAssignmentThree {
 
         //Adding all of the Magic Items Values into the hash table
             System.out.print(" ");
-            int hashValues12 = 0;
+            int hashValuesPut = 0;
 
             for(int i = 0; i < magicitems.length; i++){
-                hashValues12 = hashTable.makeHashCode(magicitems[i]);
-                hashTable.insert(magicitems[i],hashValues12);
+                hashValuesPut = hashTable.makeHashCode(magicitems[i]);
+                hashTable.put(magicitems[i],hashValuesPut);
             }
 
         //Printing out the hash table - Could also use the given Analyze Hash Table Function but I took that function and simplified it down a bit
@@ -179,8 +180,25 @@ public class AlgorithmsAssignmentThree {
         //bucket.
             hashTable.printHashTable();
 
-            System.out.println(" ");
-            System.out.println("Zales Might - " + hashTable.get("Zales Might"));
+            //For comparisons here I basically test how deep within the linked list at the bucket value. TO get the value the time can take anywhere from
+            //0 meaning it is the first element of that Entry/linked List or in this case a max of 3 or 4.
+            System.out.println("\n\n----Analysis/Get Comparisons---- ");
+            String print = " ";
+            String tempValue = " ";
+            for(int i = 0; i < randomMagicItems.length; i++){
+                System.out.print("\n");
+                print = randomMagicItems[i] + " - ";
+                tempValue = randomMagicItems[i];
+                System.out.print(i + ". ");
+                System.out.print(print);
+                System.out.println(" || Bucket Value : " + hashTable.get(tempValue));
+            }//for
+
+        System.out.println("\nTotal Comparisons : " + hashTable.getTotalComparisons());
+            double avgHashTable = hashTable.getTotalComparisons()/42.0;
+
+        System.out.println("\nAverage Number of Comparisons (Total/42): " + new DecimalFormat("0.00").format(avgHashTable));
+
 
 
 
