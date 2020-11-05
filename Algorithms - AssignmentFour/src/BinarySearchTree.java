@@ -133,8 +133,8 @@ public class BinarySearchTree {
         tempComparisons = 0;
 
         //Loop through until the key of the current node matches the key of the Node being searched
-        while (currNode.key != key){
-            tempComparisons++;
+        while (!currNode.key.equalsIgnoreCase(key)){
+            //tempComparisons++;
             if (key.compareToIgnoreCase(currNode.key) < 0){
                 tempComparisons++;
                 currNode = currNode.leftChild;

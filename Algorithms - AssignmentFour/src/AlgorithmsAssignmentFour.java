@@ -79,11 +79,11 @@ public class AlgorithmsAssignmentFour {
  */
         //Testing :
             System.out.println("\nSearch for Hectorius's Twin Rings");
-            System.out.println(tree.searchNode("Teleport Ribbon"));
+            System.out.println(tree.searchNode("UFO tofu"));
             System.out.println(tree.getTempComparisons());
             System.out.println(tree.getTotalComparisons());
 
-        //tree.print2D(tree.root);
+        tree.print2D(tree.root);
     }//main
 
     //A function that will take in a string parameter that is the name of the file and copy the contents into an array
