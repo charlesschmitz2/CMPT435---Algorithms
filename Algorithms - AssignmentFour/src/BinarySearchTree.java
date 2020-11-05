@@ -5,9 +5,9 @@ public class BinarySearchTree {
     int tempComparisons = 0;
 
     /*----addNode method----*/
-    //S represents the node string that we will be inserting here
+    //S represents the node integer number of that node, so 0-665 since we have 666
     //My Method
-    public void addTreeNode(int key, String s){
+    public void addTreeNode(String key, int s){
         //initialize node
         BinarySearchNode newNode = new BinarySearchNode(key, s);
 
@@ -28,8 +28,8 @@ public class BinarySearchTree {
                 parent = currNode;
 
                 //Check if the newNode should go on the left side
-                //if < then we go to the left child
-                if (key < currNode.key){
+                //if key is < the key of the current/focus node then we go to the left child
+                if (key.compareToIgnoreCase(currNode.key) < 0){
                     currNode = currNode.leftChild;
 
                     if (currNode == null){
@@ -64,7 +64,7 @@ public class BinarySearchTree {
         while (currNode != null) {
             trailingPointer = currNode;
 
-            if (z.key < currNode.key){
+            if (z.key.compareToIgnoreCase(currNode.key) < 0){
                 currNode = currNode.leftChild;
             }//if
             else{
@@ -78,7 +78,7 @@ public class BinarySearchTree {
             T.root = z;
         }//if
         else{
-            if (z.key < trailingPointer.key){
+            if (z.key.compareToIgnoreCase(trailingPointer.key) < 0){
                 currNode.leftChild = z;
             }//if
             else{
@@ -89,6 +89,7 @@ public class BinarySearchTree {
 
     /*----In order Traversal of Binary Tree----*/
     //Recursive method of traversing the binary search tree in order
+    //This aims fort the smallest Node value first then moves up from there
     public void inOrderTraversal(BinarySearchNode currNode){
         if (currNode != null) {
             inOrderTraversal(currNode.leftChild);
@@ -96,18 +97,45 @@ public class BinarySearchTree {
             System.out.println(currNode);
 
             inOrderTraversal(currNode.rightChild);
-        }
+        }//if
 
     }//inOrderTraversal
 
-    public BinarySearchNode searchNode(int key){
+    //Cycle down through left children first
+    //Jump up one parent, then go to right child, jump up to root eventually and go through right children
+    public void preOrderTraversal(BinarySearchNode currNode){
+        if (currNode != null) {
+            //print out each traversal so can visually confirm
+            System.out.println(currNode);
+
+            preOrderTraversal(currNode.leftChild);
+
+            preOrderTraversal(currNode.rightChild);
+        }//if
+    }//preOrderTraversal
+
+    //root or node will come last
+    public void postOrderTraversal(BinarySearchNode currNode){
+        if (currNode != null) {
+            //print out each traversal so can visually confirm
+
+            postOrderTraversal(currNode.leftChild);
+
+            postOrderTraversal(currNode.rightChild);
+
+            System.out.println(currNode);
+        }//if
+    }//postOrderTraversal
+
+    /*----Tree Search for a key element within the tree----*/
+    public BinarySearchNode searchNode(String key){
         BinarySearchNode currNode = root;
         tempComparisons = 0;
 
         //Loop through until the key of the current node matches the key of the Node being searched
         while (currNode.key != key){
             tempComparisons++;
-            if (key < currNode.key){
+            if (key.compareToIgnoreCase(currNode.key) < 0){
                 tempComparisons++;
                 currNode = currNode.leftChild;
             }//if
@@ -126,6 +154,7 @@ public class BinarySearchTree {
         return currNode;
     }//BinarySearchNode
 
+
     public int getTotalComparisons(){
         return totalComparisons;
     }//getTotalComparisons
@@ -134,6 +163,44 @@ public class BinarySearchTree {
     }//getTempComparisons;
     public void resetTotalComparisons(){
         totalComparisons = 0;
+    }
+
+
+    /*----********THIS BELOW IS NOT MY CODE*******----*/
+    //FULL CREDIT TO https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
+    //I used this to help me visualize the binary tree
+
+    // Function to print binary tree in 2D
+    // It does reverse inorder traversal
+    static final int COUNT = 10;
+    public void print2DUtil(BinarySearchNode root, int space)
+    {
+        // Base case
+        if (root == null)
+            return;
+
+        // Increase distance between levels
+        space += COUNT;
+
+        // Process right child first
+        print2DUtil(root.rightChild, space);
+
+        // Print current node after space
+        // count
+        System.out.print("\n");
+        for (int i = COUNT; i < space; i++)
+            System.out.print("- ");
+        System.out.print(root.key + "\n");
+
+        // Process left child
+        print2DUtil(root.leftChild, space);
+    }
+
+    // Wrapper over print2DUtil()
+    public void print2D(BinarySearchNode root)
+    {
+        // Pass initial space count as 0
+        print2DUtil(root, 0);
     }
     
 

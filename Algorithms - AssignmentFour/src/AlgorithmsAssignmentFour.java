@@ -42,19 +42,23 @@ public class AlgorithmsAssignmentFour {
              */
         /*-----------------------------------------------------------------------------*/
 
+        /*----Adding all the Nodes to the Tree ----*/
         //root is determined in the order they are added to the tree,
         //first addNode is the root and everything else stems from that
-        for (int i = 0; i < randomMagicItems.length; i++){
-            //int keyInsert = randomMagicItems[i].
-        }
-            tree.addTreeNode(50,"Node1");
-            tree.addTreeNode(25,"Node2");
-            tree.addTreeNode(15,"Node3");
-            tree.addTreeNode(30,"Node4");
-            tree.addTreeNode(75,"Node5");
-            tree.addTreeNode(85,"Node6");
-        //Traverse and print out them inOrder
-            tree.inOrderTraversal(tree.root);
+        for (int i = 0; i < magicitems.length; i++){
+            String keyInsert = magicitems[i];
+            tree.addTreeNode(keyInsert, i);
+        }//for
+
+        /*-----------------------------------------------------------------------------*/
+
+            //Testing :
+                //Traverse and print out them inOrder, preOrder, and postOrder starting at the root of the tree
+                tree.inOrderTraversal(tree.root);
+                //System.out.println("");
+                //tree.preOrderTraversal(tree.root);
+                //System.out.println("");
+                //tree.postOrderTraversal(tree.root);
 /*
 
     //Keep getting null pointer exception likely due to line 83 and 86
@@ -73,26 +77,13 @@ public class AlgorithmsAssignmentFour {
 
             tree.inOrderTraversal(newTree.root);
  */
-        //Testing
-            System.out.println("\nSearch for 30");
-            System.out.println(tree.searchNode(30));
+        //Testing :
+            System.out.println("\nSearch for Hectorius's Twin Rings");
+            System.out.println(tree.searchNode("Teleport Ribbon"));
             System.out.println(tree.getTempComparisons());
             System.out.println(tree.getTotalComparisons());
 
-            System.out.println("\nSearch for 15");
-            System.out.println(tree.searchNode(15));
-            System.out.println(tree.getTempComparisons());
-            System.out.println(tree.getTotalComparisons());
-
-            System.out.println("\nSearch for 25");
-            System.out.println(tree.searchNode(25));
-            System.out.println(tree.getTempComparisons());
-            System.out.println(tree.getTotalComparisons());
-
-            System.out.println("\nSearch for 50");
-            System.out.println(tree.searchNode(50));
-            System.out.println(tree.getTempComparisons());
-            System.out.println(tree.getTotalComparisons());
+        //tree.print2D(tree.root);
     }//main
 
     //A function that will take in a string parameter that is the name of the file and copy the contents into an array

@@ -1,20 +1,22 @@
 public class BinarySearchNode {
 
-    int key;
-    String s;
+    String key;
+    int s;
 
     BinarySearchNode leftChild;
     BinarySearchNode rightChild;
     BinarySearchNode parentNode;
 
-    BinarySearchNode(int key, String s){
+    BinarySearchNode(String key, int s){
         this.key = key;
         this.s = s;
     }//BinarySearchNode
 
     public String toString(){
-        return s + " has a key " + key;
+        return "'" + key + "'" + " ---- " + s;
     }
+
+
 
 
 }//BinarySearchNode
