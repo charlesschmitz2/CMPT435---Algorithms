@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -43,47 +44,140 @@ public class AlgorithmsAssignmentFour {
         /*-----------------------------------------------------------------------------*/
 
         /*----Adding all the Nodes to the Tree ----*/
-        //root is determined in the order they are added to the tree,
-        //first addNode is the root and everything else stems from that
-        for (int i = 0; i < magicitems.length; i++){
-            String keyInsert = magicitems[i];
-            tree.addTreeNode(keyInsert, i);
-        }//for
+
+            //root is determined in the order they are added to the tree,
+            //first addNode is the root and everything else stems from that
+            for (int i = 0; i < magicitems.length; i++){
+                String keyInsert = magicitems[i];
+                tree.addTreeNode(keyInsert, i);
+            }//for
 
         /*-----------------------------------------------------------------------------*/
 
-            //Testing :
+        /*----Searching for the 42 RandomMagicItems within Magicitems----*/
+
+    System.out.println("\n--------Binary Search Tree--------\n");
+        for (int i = 0; i < randomMagicItems.length; i++){
+            String searchKey = randomMagicItems[i];
+            tree.searchNode(searchKey);
+            System.out.println("\t\u2022Searching For -> " + searchKey);
+            System.out.println("\t\tComparisons to Find : " + tree.getTempComparisons() + "\n");
+        }//for
+
+        System.out.println("**Total Comparisons : " + tree.getTotalComparisons());
+        double avgBinarySearchVal = tree.getTotalComparisons()/42.0;
+        System.out.println("**Average Comparisons (Total/42) : " + new DecimalFormat("0.00").format(avgBinarySearchVal));
+
+        /*-----------------------------------------------------------------------------*/
+
+        //Use this to print out an "Image" of what the tree would look like
+        //tree.print2D(tree.root);
+
+
+        /*----Undirected Graphs---*/
+
+        String[] graphInstructions = readArray("graphs1.txt");
+        System.out.println(graphInstructions.length);
+
+
+        for (int i = 0; i < graphInstructions.length; i++){
+
+            //char instructionChar = 's';
+            //if (graphInstructions[i] != null){
+                //instructionChar = graphInstructions[i].charAt(0);
+            //}//if
+
+            //System.out.println(instructionChar);
+            System.out.println(graphInstructions[i]);
+
+            if(graphInstructions[i].toLowerCase().contains("new".toLowerCase())){
+                System.out.println("\t--CREATING NEW GRAPH");
+            }//if
+            else if (graphInstructions[i].toLowerCase().contains("edge".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
+                int edge1 = 0;
+                String edge1String = "";
+                int edge2 = 0;
+                String edge2String = "";
+                int switchEdgeNum = 0;
+                for (int y = 0; y < graphInstructions[i].length(); y++){
+                    if(Character.isDigit(graphInstructions[i].charAt(y)) || graphInstructions[i].charAt(y) == '-'){
+                        if (graphInstructions[i].charAt(y) == '-'){
+                            switchEdgeNum = 1;
+                            y++;
+                        }
+
+                        if(switchEdgeNum == 0){
+                            String edge1DigitTemp = String.valueOf(graphInstructions[i].charAt(y));
+                            edge1String = edge1String.concat(edge1DigitTemp);
+                            //System.out.println("Setting Edge1 as " + graphInstructions[i].charAt(y));
+                        }
+                        else if(switchEdgeNum == 1 && graphInstructions[i].charAt(y) != ' '){
+                            String edge2DigitTemp = String.valueOf(graphInstructions[i].charAt(y));
+                            edge2String = edge2String.concat(edge2DigitTemp);
+                            //System.out.println("Setting Edge2 as " + graphInstructions[i].charAt(y));
+                        }
+
+
+
+
+                    }
+                }
+                edge1 = Integer.parseInt(edge1String);
+                edge2 = Integer.parseInt(edge2String);
+
+                System.out.println("\t--Adding Edge : "+ edge1 + " - " + edge2);
+
+            }//else if
+            else if (graphInstructions[i].toLowerCase().contains("vertex".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
+                int addVertex = Integer.parseInt(graphInstructions[i].replaceAll("[\\D]", ""));
+                System.out.println("\t--Adding Vertex " + addVertex);
+
+
+            }//else if
+            else{
+                System.out.println("\t--Null");
+            }//else
+
+
+        }
+
+        /*-----------------------------------------------------------------------------*/
+
+
+
+
+
+            /*Testing :
                 //Traverse and print out them inOrder, preOrder, and postOrder starting at the root of the tree
                 tree.inOrderTraversal(tree.root);
                 //System.out.println("");
                 //tree.preOrderTraversal(tree.root);
                 //System.out.println("");
                 //tree.postOrderTraversal(tree.root);
-/*
+                //System.out.println("\nSearch for Hectorius's Twin Rings");
+                System.out.println(tree.searchNode("UFO tofu"));
+                System.out.println(tree.getTempComparisons());
+                System.out.println(tree.getTotalComparisons());
+             */
+            /*
 
-    //Keep getting null pointer exception likely due to line 83 and 86
-    //when trying to set currNode to left or right child
-            BinarySearchTree newTree = new BinarySearchTree();
-            BinarySearchNode nodeInsert = new BinarySearchNode(50, "Boss");
-            newTree.treeInsert(newTree, nodeInsert, nodeInsert.key);
-            BinarySearchNode nodeInsert2 = new BinarySearchNode(25, "VicePresident");
-            newTree.treeInsert(newTree, nodeInsert2, nodeInsert2.key);
-            BinarySearchNode nodeInsert3 = new BinarySearchNode(15, "Office Manager");
-            newTree.treeInsert(newTree, nodeInsert3, nodeInsert3.key);
-            BinarySearchNode nodeInsert4 = new BinarySearchNode(30, "Secretary");
-            newTree.treeInsert(newTree, nodeInsert4, nodeInsert4.key);
-            BinarySearchNode nodeInsert5 = new BinarySearchNode(75, "Sales Manager");
-            newTree.treeInsert(newTree, nodeInsert5, nodeInsert5.key);
+                //Keep getting null pointer exception likely due to line 83 and 86
+                //when trying to set currNode to left or right child
+                        BinarySearchTree newTree = new BinarySearchTree();
+                        BinarySearchNode nodeInsert = new BinarySearchNode(50, "Boss");
+                        newTree.treeInsert(newTree, nodeInsert, nodeInsert.key);
+                        BinarySearchNode nodeInsert2 = new BinarySearchNode(25, "VicePresident");
+                        newTree.treeInsert(newTree, nodeInsert2, nodeInsert2.key);
+                        BinarySearchNode nodeInsert3 = new BinarySearchNode(15, "Office Manager");
+                        newTree.treeInsert(newTree, nodeInsert3, nodeInsert3.key);
+                        BinarySearchNode nodeInsert4 = new BinarySearchNode(30, "Secretary");
+                        newTree.treeInsert(newTree, nodeInsert4, nodeInsert4.key);
+                        BinarySearchNode nodeInsert5 = new BinarySearchNode(75, "Sales Manager");
+                        newTree.treeInsert(newTree, nodeInsert5, nodeInsert5.key);
 
-            tree.inOrderTraversal(newTree.root);
- */
-        //Testing :
-            System.out.println("\nSearch for Hectorius's Twin Rings");
-            System.out.println(tree.searchNode("UFO tofu"));
-            System.out.println(tree.getTempComparisons());
-            System.out.println(tree.getTotalComparisons());
+                        tree.inOrderTraversal(newTree.root);
+             */
 
-        tree.print2D(tree.root);
     }//main
 
     //A function that will take in a string parameter that is the name of the file and copy the contents into an array
@@ -105,13 +199,13 @@ public class AlgorithmsAssignmentFour {
 
             Scanner s2 = new Scanner(new File(file));
             for(int i = 0; i < count; i++){
-                words[i]=s2.nextLine();
+                    words[i] = s2.nextLine();
             }
 
             return words;
         }//try
         catch (FileNotFoundException e){
-
+            System.out.println("File Not Found");
         }
 
         return null;
