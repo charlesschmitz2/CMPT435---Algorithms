@@ -77,21 +77,15 @@ public class AlgorithmsAssignmentFour {
         /*----Undirected Graphs---*/
 
         String[] graphInstructions = readArray("graphs1.txt");
-        System.out.println(graphInstructions.length);
+        //System.out.println(graphInstructions.length);
 
 
         for (int i = 0; i < graphInstructions.length; i++){
 
-            //char instructionChar = 's';
-            //if (graphInstructions[i] != null){
-                //instructionChar = graphInstructions[i].charAt(0);
-            //}//if
-
-            //System.out.println(instructionChar);
-            System.out.println(graphInstructions[i]);
+            //System.out.println(graphInstructions[i]);
 
             if(graphInstructions[i].toLowerCase().contains("new".toLowerCase())){
-                System.out.println("\t--CREATING NEW GRAPH");
+                System.out.println("\n\n\u2022 CREATING NEW GRAPH : " + graphInstructions[i-1] + " --");
             }//if
             else if (graphInstructions[i].toLowerCase().contains("edge".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
                 int edge1 = 0;
@@ -125,21 +119,66 @@ public class AlgorithmsAssignmentFour {
                 edge1 = Integer.parseInt(edge1String);
                 edge2 = Integer.parseInt(edge2String);
 
-                System.out.println("\t--Adding Edge : "+ edge1 + " - " + edge2);
+                //System.out.println("\t--Adding Edge : "+ edge1 + " - " + edge2);
 
             }//else if
             else if (graphInstructions[i].toLowerCase().contains("vertex".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
                 int addVertex = Integer.parseInt(graphInstructions[i].replaceAll("[\\D]", ""));
-                System.out.println("\t--Adding Vertex " + addVertex);
+                //System.out.println("\t--Adding Vertex " + addVertex);
 
 
             }//else if
             else{
-                System.out.println("\t--Null");
+                //System.out.println("\t--Null");
             }//else
 
+        }//for
 
-        }
+        System.out.println("\n\u2022 Note -> The objects in the 'GRAPH ADJACENCY LIST' are linked list objects from the 'Graph' Class");
+        System.out.println("\u2022 Note -> The objects in the 'GRAPH MATRIX' are NOT linked objects and are from the 'GraphMatrix' Class");
+        System.out.println("\u2022 Note -> The objects in the 'GRAPH LINKED OBJECTS HASHMAP' are linked list objects from the 'GraphLinkedObjectsHashMap' Class\n");
+        //**********************************************IMPORTANT NOTE***************************************************************************************************************
+            //I chose to do 3 separate classes, many of which contain similarities, because there were so many different approaches to doing this when I was researching the topic
+            //so I decided to try a few different methods to achieve the same thing to get a better understanding\
+            //each class is left to be basic because I simply as said multiple times am dealing with a loss and cannot dedicate the time I would like to in order to make the project my best work
+            //I simply chose to have that understanding of how and why and will continue to work on the implementation in the future
+        System.out.println("\n--GRAPH ADJACENCY LIST--");
+        Graph graph = new Graph(7+1);
+        graph.addEdge(1,2);
+        graph.addEdge(1,5);
+        graph.addEdge(1,6);
+        graph.addEdge(2,3);
+        graph.addEdge(2,5);
+        graph.addEdge(2,6);
+        graph.addEdge(3,4);
+        graph.addEdge(4,5);
+        graph.addEdge(5,6);
+        graph.addEdge(5,7);
+        graph.addEdge(6,7);
+        graph.printGraphAdjacencyList();
+
+        System.out.println("\n--GRAPH MATRIX--");
+
+        GraphMatrix graphMatrix = new GraphMatrix(8);
+        graphMatrix.addEdge(1,2);
+        graphMatrix.addEdge(1,5);
+        graphMatrix.addEdge(1,6);
+        graphMatrix.addEdge(2,3);
+        graphMatrix.addEdge(2,5);
+        graphMatrix.addEdge(2,6);
+        graphMatrix.addEdge(3,4);
+        graphMatrix.addEdge(4,5);
+        graphMatrix.addEdge(5,6);
+        graphMatrix.addEdge(5,7);
+        graphMatrix.addEdge(6,7);
+        graphMatrix.printGraph();
+
+
+        Vertex vertex = new Vertex("1");
+
+
+
+
 
         /*-----------------------------------------------------------------------------*/
 
