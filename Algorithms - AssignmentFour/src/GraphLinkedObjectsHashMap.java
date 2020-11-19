@@ -2,6 +2,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+
+//THIS FILE ENDED UP NOT WORKING WITH HOW I WANTED TO IMPLEMENT THIS ASSIGNMENT BUT I CHOSE TO LEAVE IT IN THE SRC AS IT WAS USEFUL
+//TO EXPERIMENT WITH HASHMAPS AND THE MANY METHODS OF WHICH TO ADDRESS GRAPHS
+
+
 //in this file I will be using a hashmap as a map of linkedlist objects of vertex nodes where I will traverse using BFS and DFS
 public class GraphLinkedObjectsHashMap {
 

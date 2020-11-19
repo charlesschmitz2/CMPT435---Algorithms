@@ -1,9 +1,74 @@
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.Map;
 
 public class GraphLinkedObjects {
 
+    List<List<Integer>> graphLinkedObjects; //This is the Linked List of Objects
+    boolean[] visited; //Keeps track of if each vertex has been visited, this will be used for BFS and DFS
+
+    public GraphLinkedObjects(int vertices) {
+        graphLinkedObjects = new ArrayList<>();
+        visited = new boolean[vertices];
+
+        for (int i = 0; i < vertices; i++) {
+            graphLinkedObjects.add(i, new ArrayList<>());
+        }//for
+    }//constructor
+
+    public void addEdge(int source, int destination) {
+        //Make sure each edge is added in both directions as graph is undirected
+        graphLinkedObjects.get(source).add(destination);
+        graphLinkedObjects.get(destination).add(source);
+    }//addEdge
+
+    public void breathFirstSearch(int startIndex) {
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.add(startIndex);
+        visited[startIndex] = true;
+
+        while (!queue.isEmpty()) {
+            Integer vertex = queue.poll();
+            System.out.print(vertex + " ");
+
+            List<Integer> childList = graphLinkedObjects.get(vertex);
+
+            for (Integer child : childList) {
+                if (!visited[child]) {
+                    queue.add(child);
+                    visited[child] = true;
+                }//if
+            }//for
+        }//while
+    }//breathFirstSearch
+
+    public void depthFirstSearch(int startIndex) {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(startIndex);
+        visited[startIndex] = true;
+
+        while (!stack.isEmpty()) {
+            Integer vertex = stack.pop();
+            System.out.print(vertex + " ");
+
+            List<Integer> neighboursList = graphLinkedObjects.get(vertex);
+
+            for (Integer neighbouringVertex : neighboursList) {
+                if (!visited[neighbouringVertex]) {
+                    stack.push(neighbouringVertex);
+                    visited[neighbouringVertex] = true;
+                }//if
+            }//for
+        }//while
+    }//depthFirstSearch
+
+    /*
     private Map<Vertex, LinkedList<Vertex>> adjacencyMap;
     private boolean directed;
 
@@ -66,5 +131,7 @@ public class GraphLinkedObjects {
             vertex.setUnVisited();
         }
     }
+
+     */
 
 }

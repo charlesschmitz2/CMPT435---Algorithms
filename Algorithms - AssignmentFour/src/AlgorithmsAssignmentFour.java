@@ -176,38 +176,7 @@ public class AlgorithmsAssignmentFour {
         graphMatrix.printGraph();
 
 
-       // Vertex vertex = new Vertex("1");
-        GraphLinkedObjects graph2 = new GraphLinkedObjects();
 
-
-        Vertex vertex1 = new Vertex(1, "1");
-        Vertex vertex2 = new Vertex(2, "2");
-        Vertex vertex3 = new Vertex(3, "3");
-        Vertex vertex4 = new Vertex(4, "4");
-        Vertex vertex5 = new Vertex(5, "5");
-        Vertex vertex6 = new Vertex(6, "6");
-        Vertex vertex7 = new Vertex(7, "7");
-        graph2.addVertex(1);
-        graph2.addVertex(2);
-        graph2.addVertex(3);
-        graph2.addVertex(4);
-        graph2.addVertex(5);
-        graph2.addVertex(6);
-        graph2.addVertex(7);
-
-
-        graph2.addEdge(1,2);
-        graph2.addEdge(1,5);
-        graph2.addEdge(1,6);
-        graph2.addEdge(2,3);
-        graph2.addEdge(2,5);
-        graph2.addEdge(2,6);
-        graph2.addEdge(3,4);
-        graph2.addEdge(4,5);
-        graph2.addEdge(5,6);
-        graph2.addEdge(5,7);
-        graph2.addEdge(6,7);
-        graph2.printEdges();
 
 
 
