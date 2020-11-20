@@ -2,10 +2,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class AlgorithmsAssignmentFour {
+
+    public static Graph graph;
+    public static GraphMatrix graphMatrix;
+    public static GraphLinkedObjects graphLinkedObjects;
 
     public static void main(String[] args) {
 
@@ -78,14 +83,30 @@ public class AlgorithmsAssignmentFour {
 
         String[] graphInstructions = readArray("graphs1.txt");
         //System.out.println(graphInstructions.length);
+        ArrayList<Integer> vertexList1 = new ArrayList<Integer>();
+        ArrayList<Integer> vertexList2 = new ArrayList<Integer>();
+        ArrayList<Integer> vertexList3 = new ArrayList<Integer>();
+        ArrayList<Integer> vertexList4 = new ArrayList<Integer>();
+        ArrayList<Integer> vertexList5 = new ArrayList<Integer>();
+        ArrayList<Integer> edgeList1 = new ArrayList<Integer>();
+        ArrayList<Integer> edgeList2 = new ArrayList<Integer>();
+        ArrayList<Integer> edgeList3 = new ArrayList<Integer>();
+        ArrayList<Integer> edgeList4 = new ArrayList<Integer>();
+        ArrayList<Integer> edgeList5 = new ArrayList<Integer>();
 
 
+
+        int graphNum = 0;
+        String graphName = "NONE";
         for (int i = 0; i < graphInstructions.length; i++){
 
             //System.out.println(graphInstructions[i]);
 
+
             if(graphInstructions[i].toLowerCase().contains("new".toLowerCase())){
-                System.out.println("\n\n\u2022 CREATING NEW GRAPH : " + graphInstructions[i-1] + " --");
+                graphNum++;
+                graphName = graphInstructions[i-1];
+                System.out.println("\n\u2022 CREATING NEW GRAPH : " + graphName + " -- "+ "Graph Number: " + graphNum);
             }//if
             else if (graphInstructions[i].toLowerCase().contains("edge".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
                 int edge1 = 0;
@@ -104,12 +125,12 @@ public class AlgorithmsAssignmentFour {
                             String edge1DigitTemp = String.valueOf(graphInstructions[i].charAt(y));
                             edge1String = edge1String.concat(edge1DigitTemp);
                             //System.out.println("Setting Edge1 as " + graphInstructions[i].charAt(y));
-                        }
+                        }//if
                         else if(switchEdgeNum == 1 && graphInstructions[i].charAt(y) != ' '){
                             String edge2DigitTemp = String.valueOf(graphInstructions[i].charAt(y));
                             edge2String = edge2String.concat(edge2DigitTemp);
                             //System.out.println("Setting Edge2 as " + graphInstructions[i].charAt(y));
-                        }
+                        }//else if
 
 
 
@@ -119,22 +140,190 @@ public class AlgorithmsAssignmentFour {
                 edge1 = Integer.parseInt(edge1String);
                 edge2 = Integer.parseInt(edge2String);
 
-                //System.out.println("\t--Adding Edge : "+ edge1 + " - " + edge2);
+                System.out.print("| Adding Edge : "+ edge1 + " - " + edge2 + " ");
+
+                if (graphNum == 1){
+                    edgeList1.add(edge1);
+                    edgeList1.add(edge2);
+                }//if
+                else if (graphNum == 2){
+                    edgeList2.add(edge1);
+                    edgeList2.add(edge2);
+                }//elseif
+                else if (graphNum == 3){
+                    edgeList3.add(edge1);
+                    edgeList3.add(edge2);
+                }//elseif
+                else if (graphNum == 4){
+                    edgeList4.add(edge1);
+                    edgeList4.add(edge2);
+                }//elseif
+                else if (graphNum == 5){
+                    edgeList5.add(edge1);
+                    edgeList5.add(edge2);
+                }//elseif
+                else{
+                    System.out.println("ERROR - UNABLE TO ADD EDGE");
+                }//else
+
+
+
 
             }//else if
             else if (graphInstructions[i].toLowerCase().contains("vertex".toLowerCase()) && !(graphInstructions[i].toLowerCase().contains("undirected".toLowerCase()))){
                 int addVertex = Integer.parseInt(graphInstructions[i].replaceAll("[\\D]", ""));
 
 
-                //System.out.println("\t--Adding Vertex " + addVertex);
-
+                System.out.print("| Adding Vertex " + addVertex + " ");
+                if (graphNum == 1){
+                    vertexList1.add(addVertex);
+                }//if
+                else if (graphNum == 2){
+                    vertexList2.add(addVertex);
+                }//elseif
+                else if (graphNum == 3){
+                    vertexList3.add(addVertex);
+                }//elseif
+                else if (graphNum == 4){
+                    vertexList4.add(addVertex);
+                }//elseif
+                else if (graphNum == 5){
+                    vertexList5.add(addVertex);
+                }//elseif
+                else{
+                    System.out.println("ERROR - NOT ENOUGH VERTEXLISTS TO HOLD GRAPHS NEED TO EDIT CODE");
+                }//else
 
             }//else if
             else{
-                //System.out.println("\t--Null");
+                System.out.println();
+
+                if (graphNum == 1 && !edgeList1.isEmpty()){
+                    graph = new Graph(vertexList1.size()+1);
+                    graphMatrix = new GraphMatrix(vertexList1.size()+1);
+                    graphLinkedObjects = new GraphLinkedObjects(vertexList1.size()+1);
+
+                    while(!edgeList1.isEmpty()){
+                        //System.out.println("adding edges " + edgeList1.get(0) + " - " + edgeList1.get(1));
+                        graph.addEdge(edgeList1.get(0), edgeList1.get(1));
+                        graphMatrix.addEdge(edgeList1.get(0), edgeList1.get(1));
+                        graphLinkedObjects.addEdge(edgeList1.get(0), edgeList1.get(1));
+                        edgeList1.remove(0);
+                        edgeList1.remove(0);
+                    }
+
+
+                    System.out.println("\n\t--GRAPH ADJACENCY LIST--");
+                    graph.printGraphAdjacencyList();
+                    System.out.println("\n\t--GRAPH MATRIX--");
+                    graphMatrix.printGraph();
+                    System.out.println("\n");
+                    for (int y = 0; y < vertexList1.size(); y++){
+                        System.out.print("Breath First Search : ");
+                        graphLinkedObjects.breathFirstSearch(vertexList1.get(y));
+                        System.out.print(" | Depth First Search : ");
+                        graphLinkedObjects.depthFirstSearch(vertexList1.get(y));
+                        System.out.println("\n");
+                    }
+
+                }//if
+                else if (graphNum == 2 && !edgeList2.isEmpty()){
+                    graph = new Graph(vertexList2.size()+1);
+                    graphMatrix = new GraphMatrix(vertexList2.size()+1);
+                    graphLinkedObjects = new GraphLinkedObjects(vertexList2.size()+1);
+
+                    while(!edgeList2.isEmpty()){
+                        //System.out.println("adding edges " + edgeList1.get(0) + " - " + edgeList1.get(1));
+                        graph.addEdge(edgeList2.get(0), edgeList2.get(1));
+                        graphMatrix.addEdge(edgeList2.get(0), edgeList2.get(1));
+                        graphLinkedObjects.addEdge(edgeList2.get(0), edgeList2.get(1));
+                        edgeList2.remove(0);
+                        edgeList2.remove(0);
+                    }
+
+
+                    System.out.println("\n\t--GRAPH ADJACENCY LIST--");
+                    graph.printGraphAdjacencyList();
+                    System.out.println("\n\t--GRAPH MATRIX--");
+                    graphMatrix.printGraph();
+
+                }//elseif
+                else if (graphNum == 3 && !edgeList3.isEmpty()){
+                    graph = new Graph(vertexList3.size()+1);
+                    graphMatrix = new GraphMatrix(vertexList3.size()+1);
+                    graphLinkedObjects = new GraphLinkedObjects(vertexList3.size()+1);
+
+                    while(!edgeList3.isEmpty()){
+                        //System.out.println("adding edges " + edgeList1.get(0) + " - " + edgeList1.get(1));
+                        graph.addEdge(edgeList3.get(0), edgeList3.get(1));
+                        graphMatrix.addEdge(edgeList3.get(0), edgeList3.get(1));
+                        graphLinkedObjects.addEdge(edgeList3.get(0), edgeList3.get(1));
+                        edgeList3.remove(0);
+                        edgeList3.remove(0);
+                    }
+
+
+                    System.out.println("\n\t--GRAPH ADJACENCY LIST--");
+                    graph.printGraphAdjacencyList();
+                    System.out.println("\n\t--GRAPH MATRIX--");
+                    graphMatrix.printGraph();
+
+                }//elseif
+                else if (graphNum == 4 && !edgeList4.isEmpty()){
+                    graph = new Graph(vertexList4.size()+1);
+                    graphMatrix = new GraphMatrix(vertexList4.size()+1);
+                    graphLinkedObjects = new GraphLinkedObjects(vertexList4.size()+1);
+
+                    while(!edgeList4.isEmpty()){
+                        //System.out.println("adding edges " + edgeList1.get(0) + " - " + edgeList1.get(1));
+                        graph.addEdge(edgeList4.get(0), edgeList4.get(1));
+                        graphMatrix.addEdge(edgeList4.get(0), edgeList4.get(1));
+                        graphLinkedObjects.addEdge(edgeList4.get(0), edgeList4.get(1));
+                        edgeList4.remove(0);
+                        edgeList4.remove(0);
+                    }
+
+
+                    System.out.println("\n\t--GRAPH ADJACENCY LIST--");
+                    graph.printGraphAdjacencyList();
+                    System.out.println("\n\t--GRAPH MATRIX--");
+                    graphMatrix.printGraph();
+
+
+                }//elseif
+                else if (graphNum == 5 && !edgeList5.isEmpty()){
+                    graph = new Graph(vertexList5.size()+1);
+                    graphMatrix = new GraphMatrix(vertexList5.size()+1);
+                    graphLinkedObjects = new GraphLinkedObjects(vertexList5.size()+1);
+
+                    while(!edgeList5.isEmpty()){
+                        //System.out.println("adding edges " + edgeList1.get(0) + " - " + edgeList1.get(1));
+                        graph.addEdge(edgeList5.get(0), edgeList5.get(1));
+                        graphMatrix.addEdge(edgeList5.get(0), edgeList5.get(1));
+                        graphLinkedObjects.addEdge(edgeList5.get(0), edgeList5.get(1));
+                        edgeList5.remove(0);
+                        edgeList5.remove(0);
+                    }
+
+
+                    System.out.println("\n\t--GRAPH ADJACENCY LIST--");
+                    graph.printGraphAdjacencyList();
+                    System.out.println("\n\t--GRAPH MATRIX--");
+                    graphMatrix.printGraph();
+                    for (int y = 0; y < vertexList5.size(); y++){
+                        graphLinkedObjects.breathFirstSearch(vertexList5.get(y));
+                        graphLinkedObjects.depthFirstSearch(vertexList5.get(y));
+                    }
+
+                }//elseif
+                else{
+                    System.out.println("");
+                }//else
+
             }//else
 
         }//for
+
 
         System.out.println("\n\u2022 Note -> The objects in the 'GRAPH ADJACENCY LIST' are linked list objects from the 'Graph' Class");
         System.out.println("\u2022 Note -> The objects in the 'GRAPH MATRIX' are NOT linked objects and are from the 'GraphMatrix' Class");
@@ -144,7 +333,8 @@ public class AlgorithmsAssignmentFour {
             //so I decided to try a few different methods to achieve the same thing to get a better understanding\
             //each class is left to be basic because I simply as said multiple times am dealing with a loss and cannot dedicate the time I would like to in order to make the project my best work
             //I simply chose to have that understanding of how and why and will continue to work on the implementation in the future
-        System.out.println("\n--GRAPH ADJACENCY LIST--");
+
+        /*System.out.println("\n--GRAPH ADJACENCY LIST--");
         Graph graph = new Graph(7+1);
         graph.addEdge(1,2);
         graph.addEdge(1,5);
@@ -158,6 +348,8 @@ public class AlgorithmsAssignmentFour {
         graph.addEdge(5,7);
         graph.addEdge(6,7);
         graph.printGraphAdjacencyList();
+
+
 
         System.out.println("\n--GRAPH MATRIX--");
 
@@ -174,6 +366,22 @@ public class AlgorithmsAssignmentFour {
         graphMatrix.addEdge(5,7);
         graphMatrix.addEdge(6,7);
         graphMatrix.printGraph();
+
+        GraphLinkedObjects graphLinkedObjects = new GraphLinkedObjects(8);
+        graphLinkedObjects.addEdge(1,2);
+        graphLinkedObjects.addEdge(1,5);
+        graphLinkedObjects.addEdge(1,6);
+        graphLinkedObjects.addEdge(2,3);
+        graphLinkedObjects.addEdge(2,5);
+        graphLinkedObjects.addEdge(2,6);
+        graphLinkedObjects.addEdge(3,4);
+        graphLinkedObjects.addEdge(4,5);
+        graphLinkedObjects.addEdge(5,6);
+        graphLinkedObjects.addEdge(5,7);
+        graphLinkedObjects.addEdge(6,7);
+
+
+         */
 
 
 
@@ -286,5 +494,6 @@ public class AlgorithmsAssignmentFour {
 
         return result;
     }//UniqueRandomNumber
+
 
 }//AlgorithmsAssignmentFour

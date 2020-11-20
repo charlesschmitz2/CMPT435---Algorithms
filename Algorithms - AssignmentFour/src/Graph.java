@@ -11,23 +11,26 @@ public class Graph {
         adjacencyList = new LinkedList[vertexCount];
         for (int i = 0; i < vertexCount; i++) {
             adjacencyList[i] = new LinkedList<>();
-        }
-    }
+        }//for
+    }//Constructor
 
+    /*----Add's Edge to Adjacency List Graph----*/
+    //As always with the undirected graphs they should be added in both directions
     public void addEdge(int source, int destination) {
         adjacencyList[source].addFirst(destination);
         adjacencyList[destination].addFirst(source);
-    }
+    }//addEdge
 
+    /*----Prints out the Adjacency List Version of the Graph----*/
     public void printGraphAdjacencyList() {
         for (int i = 0; i < vertexCount; i++) {
             if (adjacencyList[i].size() > 0) {
-                System.out.print("[" + i + "] : ");
+                System.out.print("\t[" + i + "] : ");
                 for (int j = 0; j < adjacencyList[i].size(); j++) {
                     System.out.print(adjacencyList[i].get(j) + " ");
-                }
+                }//for
                 System.out.println();
-            }
-        }
-    }
-}
+            }//if
+        }//for
+    }//PrintGraphAdjacencyList
+}//Graph

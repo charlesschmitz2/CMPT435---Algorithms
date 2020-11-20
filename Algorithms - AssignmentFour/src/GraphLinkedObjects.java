@@ -10,6 +10,7 @@ public class GraphLinkedObjects {
 
     List<List<Integer>> graphLinkedObjects; //This is the Linked List of Objects
     boolean[] visited; //Keeps track of if each vertex has been visited, this will be used for BFS and DFS
+    //Visited is the equivalent of 'hasbeenprocessed' from our notes, I just changed to something that made sense for me.
 
     public GraphLinkedObjects(int vertices) {
         graphLinkedObjects = new ArrayList<>();
@@ -20,15 +21,18 @@ public class GraphLinkedObjects {
         }//for
     }//constructor
 
+    /*----addEdge to the Linked Objects Graph----*/
     public void addEdge(int source, int destination) {
         //Make sure each edge is added in both directions as graph is undirected
         graphLinkedObjects.get(source).add(destination);
         graphLinkedObjects.get(destination).add(source);
     }//addEdge
 
+    /*----BFS, Goes wide before going deep. Traverses every node, finishing the current level before going onto the next level----*/
     public void breathFirstSearch(int startIndex) {
         Queue<Integer> queue = new LinkedList<>();
 
+        //add and poll are the same as enqueue and dequeue I am just using the built in java queue commands but could have easily used our queue classes previously built
         queue.add(startIndex);
         visited[startIndex] = true;
 
@@ -47,6 +51,7 @@ public class GraphLinkedObjects {
         }//while
     }//breathFirstSearch
 
+    /*----DFS, Goes deep starting at root/startIndex here, working up after hitting bottom, then back down until hit bottom, then back up and so on----*/
     public void depthFirstSearch(int startIndex) {
         Stack<Integer> stack = new Stack<>();
 
@@ -68,70 +73,5 @@ public class GraphLinkedObjects {
         }//while
     }//depthFirstSearch
 
-    /*
-    private Map<Vertex, LinkedList<Vertex>> adjacencyMap;
-    private boolean directed;
-
-    public GraphLinkedObjects(){
-        this.directed = directed;
-        adjacencyMap = new HashMap<>();
-    }//constructor
-
-    public void addEdgeHelper(Vertex a, Vertex b) {
-        LinkedList<Vertex> tempValue = adjacencyMap.get(a);
-
-        if (tempValue != null) {
-            tempValue.remove(b);
-        }
-        else tempValue = new LinkedList<>();
-        tempValue.add(b);
-        adjacencyMap.put(a,tempValue);
-    }//addEdgeHelper
-
-    public void addEdge(Vertex source, Vertex destination){
-        //check to see if the source exists, is it doesnt put the source. The source value basically represents what we usually call a key value in all are other assignments
-        //check all edge cases
-        if (!adjacencyMap.keySet().contains(source)){
-            adjacencyMap.put(source, null);
-        }//if
-        if (!adjacencyMap.keySet().contains(destination)){
-            adjacencyMap.put(destination, null);
-        }//if
-
-        addEdgeHelper(source, destination);
-
-        //We are working with undirected graphs here so want to ensure that each connection is added both ways
-        if (!directed) {
-            addEdgeHelper(destination, source);
-        }//if
-    }//addEdge
-
-    public void addVertex(int num){
-        String numString = new String(String.valueOf(num));
-        Vertex node = new Vertex(num,numString);
-
-    }
-
-    public void printEdges() {
-        for (Vertex vertex : adjacencyMap.keySet()) {
-            System.out.print("The " + vertex.name + " has an edge towards: ");
-            for (Vertex neighbor : adjacencyMap.get(vertex)) {
-                System.out.print(neighbor.name + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean hasEdge(Vertex source, Vertex destination) {
-        return adjacencyMap.containsKey(source) && adjacencyMap.get(source).contains(destination);
-    }
-
-    public void resetVertexVisited(){
-        for(Vertex vertex : adjacencyMap.keySet()){
-            vertex.setUnVisited();
-        }
-    }
-
-     */
 
 }
