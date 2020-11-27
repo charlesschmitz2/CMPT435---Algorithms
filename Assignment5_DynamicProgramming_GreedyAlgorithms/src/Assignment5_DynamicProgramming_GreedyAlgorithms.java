@@ -3,6 +3,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Assignment5_DynamicProgramming_GreedyAlgorithms {
+
+    public int currentVertex = 0;
+
     public static void main(String[] args) {
 
         readAndProcess("graphs2.txt");

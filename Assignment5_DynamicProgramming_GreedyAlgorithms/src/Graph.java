@@ -55,12 +55,11 @@ public class Graph {
     }//BellmanFord
 
     public void printSolution(int[] distance, int vertices) {
-        System.out.println("Vertex Distance from Source");
-
+        System.out.println("\nVertex Distance from Source w/ Cost Analysis: ");
         for (int i = 0; i < vertices; i++){
-            System.out.println(i + "\t\t" + distance[i]);
-
+            System.out.println("\t\t" + i + "\t\t" + distance[i] + "\t\t | 0 --> " + i + " - Cost is " + distance[i]);
         }//for
+
     }//printSolution
 
 
