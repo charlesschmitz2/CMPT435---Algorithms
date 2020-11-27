@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c8bee9e3-9f78-4731-b4d1-dc96d7710e7f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jnR2E9tb80hhoec2T9BfrQaiJY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Algorithms Assignment Three" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager">
+    <configuration name="AlgorithmsAssignmentFour" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AlgorithmsAssignmentFour" />
+      <module name="Algorithms Assignment Four" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AlgorithmsAssignmentFour" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c8bee9e3-9f78-4731-b4d1-dc96d7710e7f" name="Default Changelist" comment="" />
+      <created>1604437663587</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604437663587</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="231" y="60" key="#Project_Structure" timestamp="1604437701963">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state x="231" y="60" key="#Project_Structure/0.0.1500.970@0.0.1500.970" timestamp="1604437701963" />
+    <state x="531" y="240" key="FileChooserDialogImpl" timestamp="1604527554943">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state x="531" y="240" key="FileChooserDialogImpl/0.0.1500.970@0.0.1500.970" timestamp="1604527554943" />
+    <state width="1458" height="255" key="GridCell.Tab.0.bottom" timestamp="1604528651625">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state width="1458" height="255" key="GridCell.Tab.0.bottom/0.0.1500.970@0.0.1500.970" timestamp="1604528651625" />
+    <state width="1458" height="255" key="GridCell.Tab.0.center" timestamp="1604528651623">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state width="1458" height="255" key="GridCell.Tab.0.center/0.0.1500.970@0.0.1500.970" timestamp="1604528651623" />
+    <state width="1458" height="255" key="GridCell.Tab.0.left" timestamp="1604528651622">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state width="1458" height="255" key="GridCell.Tab.0.left/0.0.1500.970@0.0.1500.970" timestamp="1604528651622" />
+    <state width="1458" height="255" key="GridCell.Tab.0.right" timestamp="1604528651624">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state width="1458" height="255" key="GridCell.Tab.0.right/0.0.1500.970@0.0.1500.970" timestamp="1604528651624" />
+    <state x="13" y="97" width="1461" height="783" key="SettingsEditor" timestamp="1604529219517">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state x="13" y="97" width="1461" height="783" key="SettingsEditor/0.0.1500.970@0.0.1500.970" timestamp="1604529219517" />
+    <state x="788" y="207" width="672" height="678" key="search.everywhere.popup" timestamp="1604525116590">
+      <screen x="0" y="0" width="1500" height="970" />
+    </state>
+    <state x="788" y="207" width="672" height="678" key="search.everywhere.popup/0.0.1500.970@0.0.1500.970" timestamp="1604525116590" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/AlgorithmsAssignmentFour.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/AlgorithmsAssignmentFour.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
