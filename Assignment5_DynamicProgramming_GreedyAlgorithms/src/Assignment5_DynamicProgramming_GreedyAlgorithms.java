@@ -94,7 +94,7 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
         //spice name = green;  total_price = 12.0;  qty = 6;
         //spice name = blue;   total_price = 40.0;  qty = 8;
         //spice name = orange; total_price = 18.0;  qty = 2;
-        List<KnapsackItem> items = new ArrayList<>(); // Initialize Variables
+        /*List<KnapsackItem> items = new ArrayList<>(); // Initialize Variables
         Knapsack knapsack = new Knapsack(items,0);
             knapsack.addItem("red", 4.0, 4, 4.0/4);//Add the items to the knapsack
             knapsack.addItem("green", 12.0, 6, 12.0/6);
@@ -106,6 +106,8 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
 
         Knapsack knapsackSolution = knapsack.findWorth(21);
         knapsackSolution.print();
+        
+         */
 
         parseAndSoveSpiceProblem("spice.txt");
 
