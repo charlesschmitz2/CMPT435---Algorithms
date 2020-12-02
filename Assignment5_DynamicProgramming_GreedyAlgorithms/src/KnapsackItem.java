@@ -10,12 +10,12 @@ public class KnapsackItem {
     private int quantity;
     private final double unitPrice;
 
-    public KnapsackItem(String name, double price, int qty){
+    public KnapsackItem(String name, double price, int qty, double up){
         spiceName = name;
         totalPrice = price;
         quantity = qty;
 
-        unitPrice = price/quantity;
+        unitPrice = up;
     }//knapsackItem Constructor
 
     public int getQuantity() {
@@ -46,12 +46,14 @@ public class KnapsackItem {
         return unitPrice;
     }
 
+
     @Override
     public String toString() {
         return "KnapsackItem{" +
-                "spiceName='" + spiceName + '\'' +
-                ", totalPrice=" + totalPrice +
-                ", quantity=" + quantity +
+                " spiceName = '" + spiceName + '\'' +
+                ", totalPrice = " + totalPrice +
+                ", quantity = " + quantity +
+                ", unitPrice = " + unitPrice +
                 '}';
     }//toString
 }

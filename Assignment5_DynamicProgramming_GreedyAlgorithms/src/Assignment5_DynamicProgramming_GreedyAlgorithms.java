@@ -1,9 +1,5 @@
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 
 public class Assignment5_DynamicProgramming_GreedyAlgorithms {
 
@@ -94,14 +90,20 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
         //spice name = green;  total_price = 12.0;  qty = 6;
         //spice name = blue;   total_price = 40.0;  qty = 8;
         //spice name = orange; total_price = 18.0;  qty = 2;
-        List<KnapsackItem> items = new ArrayList<>();
+        List<KnapsackItem> items = new ArrayList<>(); // Initialize Variables
         Knapsack knapsack = new Knapsack(items,0);
-            knapsack.addItem("red", 4.0, 4);
-            knapsack.addItem("green", 12, 6);
-            knapsack.addItem("blue", 40, 8);
-            knapsack.addItem("orange", 18, 2);
-            knapsack.setKnapsackCapacity(1);
+            knapsack.addItem("red", 4.0, 4, 4.0/4);//Add the items to the knapsack
+            knapsack.addItem("green", 12.0, 6, 12.0/6);
+            knapsack.addItem("blue", 40.0, 8, 40.0/8);
+            knapsack.addItem("orange", 18.0, 2, 18.0/2);
+            knapsack.sort(); //sort the items
+                                //calculate the solution based on the capacity provided
         knapsack.print();
+
+        Knapsack knapsackSolution = knapsack.findWorth(1);
+        knapsackSolution.print();
+
+
 
 
 
@@ -296,3 +298,4 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
 
 
     }//Assignment5_DynamicProgramming_GreedyAlgorithms
+

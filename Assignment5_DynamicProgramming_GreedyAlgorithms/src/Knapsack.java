@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Knapsack {
@@ -11,15 +13,71 @@ public class Knapsack {
         knapsackCapacity = capacity;
     }//knapsack
 
-    public List<KnapsackItem> findWorth(List<KnapsackItem> items, int capacity) {
-        List<KnapsackItem> itemsList = items;
-        List<KnapsackItem> itemSolutions = new ArrayList<KnapsackItem>();
-        return itemSolutions;
+    public Knapsack findWorth(int capacity) {
+
+        ArrayList<KnapsackItem> solution = new ArrayList<>(); // Initialize Variables
+        Knapsack knapsackSolution = new Knapsack(solution,0);
+
+        if (capacity <= 0) {
+            System.out.println("Unable to compute worth, 'Capacity' was listed as a negative value or none was given");
+            return knapsackSolution;
+        }//if
+
+            this.setKnapsackCapacity(capacity);
+
+            boolean capacityRemains = true;
+
+            int counter = 0;
+            int tempQuantity = knapsackItems.get(counter).getQuantity();
+            while (capacityRemains) {
+                if (capacity == 0) {
+                    capacityRemains = false;
+                    System.out.println("Setting Capacity to false");
+                }//if
+                else {
+                    while (tempQuantity > 0 && capacity > 0) {
+                        System.out.println("in tempQuantity > 0 \nBefore : ");
+                        System.out.println(tempQuantity);
+                        System.out.println(capacity);
+                        if (ifExistsInSolution(knapsackItems.get(counter).getSpiceName(), solution)){
+                            int temp1 = knapsackItems.get(counter).getQuantity();
+                            temp1++;
+                            solution.get(counter).setQuantity(temp1);
+                            System.out.println("in tempQuantity > 0 if statement");
+                        }//if
+                        else {
+                            System.out.println("in tempQuantity > 0 else statement");
+                            knapsackSolution.addItem(knapsackItems.get(counter).getSpiceName(), knapsackItems.get(counter).getTotalPrice(), knapsackItems.get(counter).getQuantity(), knapsackItems.get(counter).getUnitPrice());
+                        }//else\
+                        tempQuantity--;
+                        capacity--;
+                        System.out.println("After: ");
+                        System.out.println(tempQuantity);
+                        System.out.println(capacity);
+                    }//while
+                    counter++;
+                }//else
+                //System.out.println("in Capacity Remains");
+            }//while
+
+            return knapsackSolution;
+
+
     }//findWorth
 
-    public void addItem(String name, double price, int quanity){
-        KnapsackItem item = new KnapsackItem(name, price, quanity);
+    public void addItem(String name, double price, int quanity,double unitPrice){
+        KnapsackItem item = new KnapsackItem(name, price, quanity, unitPrice);
         knapsackItems.add(item);
+    }//addItem
+
+    public void sort(){
+        Collections.sort(knapsackItems, Comparator.comparing(KnapsackItem::getUnitPrice));
+        Collections.reverse(knapsackItems);
+    }
+
+
+    public List<KnapsackItem> getKnapsackItems() {
+        return knapsackItems;
     }
 
     public int getKnapsackCapacity() {
@@ -30,16 +88,26 @@ public class Knapsack {
         this.knapsackCapacity = knapsackCapacity;
     }
 
+    public boolean ifExistsInSolution(String name, ArrayList<KnapsackItem> solutions){
+        for (int i = 0; i < solutions.size(); i++){
+            if(solutions.get(i).getSpiceName().trim().compareToIgnoreCase(name.trim()) == 0) {
+                return true;
+            }//if
+        }//for
+        return false;
+    }//ifExists
+
     public void print(){
-        System.out.println("PRINTING");
         if (!knapsackItems.isEmpty()) {
-            System.out.println("Knapsack Problem ");
-            System.out.println("Capacity : " + knapsackCapacity);
-            System.out.println("Items : ");
+            System.out.println("\n-- Knapsack Contents --  ");
+            System.out.println("\tCapacity : " + knapsackCapacity);
+            System.out.println("\tItems : ");
 
             for (int j = 0; j < knapsackItems.size(); j++) {
-                System.out.println(knapsackItems.get(j));
+                System.out.println("\t\t\u2022" + knapsackItems.get(j));
             }//for
         }//if
     }//print
+
+
 }//Knapsack
