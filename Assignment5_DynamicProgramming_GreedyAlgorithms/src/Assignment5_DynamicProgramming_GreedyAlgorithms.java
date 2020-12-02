@@ -15,10 +15,10 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
     /*----BellmanFord Single Source Shortest Path Algorithm----*/
         readAndProcess("graphs2.txt");
 
-        /* -----FOR SOME REASON WORKS WHEN HARDCODING IN BUT CANT SEEM TO GET TO WORK WHEN LOOPING EVEN THOUGH MY BELLMAN FORD FUNCTION SEEMS CORRECT
+        /*
+        //-----FOR SOME REASON WORKS WHEN HARDCODING IN BUT CANT SEEM TO GET TO WORK WHEN LOOPING EVEN THOUGH MY BELLMAN FORD FUNCTION SEEMS CORRECT
                                     int V = 5; // Number of vertices in graph
                                     int E = 8; // Number of edges in graph
-
                                     graph = new Graph(V, E);
 
                                     // add edge 0-1
@@ -83,7 +83,9 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
                                     System.out.print("DONE");
                                     graph.bellmanFord(graph, 0);
 
-                             */
+
+         */
+
 
         /*----Knapsack Problem----*/
         //spice name = red;    total_price =  4.0;  qty = 4;
@@ -100,7 +102,7 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
                                 //calculate the solution based on the capacity provided
         knapsack.print();
 
-        Knapsack knapsackSolution = knapsack.findWorth(1);
+        Knapsack knapsackSolution = knapsack.findWorth(21);
         knapsackSolution.print();
 
 
