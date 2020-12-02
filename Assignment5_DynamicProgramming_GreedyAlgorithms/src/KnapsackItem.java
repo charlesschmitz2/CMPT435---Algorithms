@@ -6,13 +6,16 @@ public class KnapsackItem {
         //quantity -- How many "scoops"
 
     private String spiceName;
-    private int totalPrice;
+    private double totalPrice;
     private int quantity;
+    private final double unitPrice;
 
-    public KnapsackItem(String name, int price, int qty){
+    public KnapsackItem(String name, double price, int qty){
         spiceName = name;
         totalPrice = price;
         quantity = qty;
+
+        unitPrice = price/quantity;
     }//knapsackItem Constructor
 
     public int getQuantity() {
@@ -23,7 +26,7 @@ public class KnapsackItem {
         this.quantity = quantity;
     }//setQuantity
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }//getTotalPrice
 
@@ -38,6 +41,10 @@ public class KnapsackItem {
     public void setSpiceName(String spiceName) {
         this.spiceName = spiceName;
     }//setSpiceName
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
 
     @Override
     public String toString() {
