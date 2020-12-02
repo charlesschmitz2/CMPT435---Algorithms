@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Assignment5_DynamicProgramming_GreedyAlgorithms {
@@ -104,6 +106,8 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
 
         Knapsack knapsackSolution = knapsack.findWorth(21);
         knapsackSolution.print();
+
+        parseAndSoveSpiceProblem("spice.txt");
 
 
 
@@ -296,6 +300,81 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
         }//isInteger
 
     /*----Knapsack Problem----*/
+
+    private static void parseAndSoveSpiceProblem(String fileName) {
+        List<KnapsackItem> items = new ArrayList<>(); // Initialize Variables
+        Knapsack knapsack = new Knapsack(items,0);
+
+        try {
+            Path path = Paths.get(fileName);
+            Scanner scanner = new Scanner(path);
+
+            System.out.println("PROCESSING FILE " + "'"+fileName+"'" + "[");
+            //read line by line
+            while(scanner.hasNextLine()){
+                //process each line
+                String line = scanner.nextLine();
+                if (!line.isEmpty() && !line.contains("--")){
+                    String spiceName = "";
+                    double totalPrice = 0;
+                    int quantity = 0;
+                    int capacity = 0;
+                    //System.out.println("\t\u2022 " + line);
+                        String words[] = line.split(";");
+                        for (int i = 0; i < words.length; i++){
+                                String searchValue = words[i].substring(words[i].lastIndexOf(" ")+1);
+
+                                if (words[i].contains("spice name")){
+                                    spiceName = searchValue;
+                                    //System.out.println(spiceName);
+                                }
+                                else if (words[i].contains("total_price")){
+                                    totalPrice = Double.parseDouble(searchValue);
+                                    //System.out.println(totalPrice);
+                                }
+                                else if (words[i].contains("qty")){
+                                    quantity = Integer.parseInt(searchValue);
+                                    //System.out.println(quantity);
+                                }
+                                else if (words[i].contains("capacity")){
+                                    capacity = Integer.parseInt(searchValue);
+                                    //System.out.println(capacity);
+                                }//else if
+                        }//for
+                    if (capacity == 0) {
+                        knapsack.addItem(spiceName,totalPrice,quantity,totalPrice/quantity);
+                        System.out.println("\t\tItem Added to Knapsack : " + "KnapsackItem{" +
+                                                                            " spiceName = '" + spiceName + '\'' +
+                                                                            ", totalPrice = " + totalPrice +
+                                                                            ", quantity = " + quantity +
+                                                                            ", unitPrice = " + totalPrice/quantity +
+                                                                             '}');
+                    }//if
+                    else {
+                        System.out.println("\n\n----Running with Capacity = " + capacity + "----");
+                        knapsack.sort();
+                        System.out.println("KNAPSACK CONTENTS BEFORE SOLUTION : ");
+                        knapsack.print();
+                        //knapsack.print();
+                        System.out.println("\nSOLVING : ");
+                        Knapsack knapsackSolution = knapsack.findWorth(capacity);
+                        System.out.println("SOLUTION : ");
+                        knapsackSolution.print();
+                        System.out.println("\nTOTAL ~SPICE~ YOU STOLE = " + knapsackSolution.totalWorth());
+                    }
+                }//if
+
+            }
+            scanner.close();
+
+            System.out.println("\n] PROCESSING FILE COMPLETE");
+        }//try
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 
 

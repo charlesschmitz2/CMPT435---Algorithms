@@ -19,11 +19,11 @@ public class Knapsack {
         Knapsack knapsackSolution = new Knapsack(solution,0);
 
         if (capacity <= 0) {
-            System.out.println("\n\nUnable to compute worth, 'Capacity' was listed as a negative value or none was given");
+            System.out.println("\tUnable to compute worth, 'Capacity' was listed as a negative value or none was given");
             return knapsackSolution;
         }//if
         if (capacity > this.totalCapacity()){
-            System.out.println("\n\nUnable to compute worth, ' Capacity was listed as a value larger than the size of the Knapsack");
+            System.out.println("\tUnable to compute worth, ' Capacity was listed as a value larger than the size of the Knapsack");
             return knapsackSolution;
         }
 
@@ -36,31 +36,31 @@ public class Knapsack {
             while (capacityRemains) {
                 if (capacity == 0) {
                     capacityRemains = false;
-                    System.out.println("Setting Capacity to false");
+                    //System.out.println("Setting Capacity to false");
                 }//if
                 else {
                     int tempQuantity = knapsackItems.get(counter).getQuantity();
                     while (tempQuantity > 0 && capacity > 0) {
-                        System.out.println("in tempQuantity > 0 \nBefore : ");
-                        System.out.println(tempQuantity);
-                        System.out.println(capacity);
+                        //System.out.println("in tempQuantity > 0 \nBefore : ");
+                        //System.out.println(tempQuantity);
+                        //System.out.println(capacity);
                         if (ifExistsInSolution(knapsackItems.get(counter).getSpiceName(), solution)){
                             int temp1 = solution.get(counter).getQuantity();
                             temp1++;
                             solution.get(counter).setQuantity(temp1);
-                            System.out.println("Adding a scoop of " + knapsackItems.get(counter));
-                            System.out.println("in tempQuantity > 0 if statement");
+                            System.out.println("\t\u2022 Adding another scoop of " + knapsackItems.get(counter).getSpiceName());
+                            //System.out.println("in tempQuantity > 0 if statement");
                         }//if
                         else {
-                            System.out.println("in tempQuantity > 0 else statement");
-                            System.out.println("Adding to Solution " + knapsackItems.get(counter));
+                            //System.out.println("in tempQuantity > 0 else statement");
+                            System.out.println("\t\u2022 Adding to Solution Knapsack the first scoop of " + knapsackItems.get(counter).getSpiceName());
                             knapsackSolution.addItem(knapsackItems.get(counter).getSpiceName(), knapsackItems.get(counter).getTotalPrice(), 1, knapsackItems.get(counter).getUnitPrice());
                         }//else\
                         tempQuantity--;
                         capacity--;
-                        System.out.println("After: ");
-                        System.out.println(tempQuantity);
-                        System.out.println(capacity);
+                        //System.out.println("After: ");
+                        //System.out.println(tempQuantity);
+                        //System.out.println(capacity);
                     }//while
                     counter++;
                 }//else
@@ -112,14 +112,22 @@ public class Knapsack {
         return totalCapacity;
     }//totalCapacity
 
+    public double totalWorth(){
+        double totalWorth = 0.0;
+        for(int i = 0; i < knapsackItems.size(); i++){
+            totalWorth += knapsackItems.get(i).getUnitPrice()*knapsackItems.get(i).getQuantity();
+        }
+        return totalWorth;
+    }//totalWorth
+
     public void print(){
         if (!knapsackItems.isEmpty()) {
-            System.out.println("\n-- Knapsack Contents --  ");
-            System.out.println("\tCapacity : " + knapsackCapacity);
-            System.out.println("\tItems : ");
+            System.out.println("\t-- Knapsack Contents --  ");
+            System.out.println("\t\tCapacity Left : " + knapsackCapacity);
+            System.out.println("\t\tItems : ");
 
             for (int j = 0; j < knapsackItems.size(); j++) {
-                System.out.println("\t\t\u2022" + knapsackItems.get(j));
+                System.out.println("\t\t\t\u2022" + knapsackItems.get(j));
             }//for
         }//if
     }//print
