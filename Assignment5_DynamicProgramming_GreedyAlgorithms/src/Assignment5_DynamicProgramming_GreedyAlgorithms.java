@@ -272,7 +272,7 @@ public class Assignment5_DynamicProgramming_GreedyAlgorithms {
                         System.out.println("List of all Edges (w/ weights): " + edgeListALL  + "   EdgeCount = " + edgeCount/3);
                         Graph graph = new Graph(vertices, edges);
                         graph.bellmanFord(graph, startVertex);
-                System.out.println("\n\n] PROCESSING FILE COMPLETE **^^Created for Testing and Debugging/Visualizing Purposes^^**");
+                System.out.println("\n\n] PROCESSING FILE COMPLETE");
 
             }//try
             catch (IOException e) {
