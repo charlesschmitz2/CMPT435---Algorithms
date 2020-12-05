@@ -35,6 +35,10 @@ public class ListPeople {
         }
     }//test
 
+    public List<Person> getList(){
+        return people;
+    }//getList
+
     public void clearList(){
         this.people.clear();
     }//clear

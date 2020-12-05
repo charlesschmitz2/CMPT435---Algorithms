@@ -175,11 +175,19 @@ public class SemesterProjectMain {
         //of how many tests are needed as there is no magic person node that marks people as sick or not sick that you can just summon up.
 
         double numberTestGroups = Math.ceil((float) peopleList.size()/8); 
-        List<Person> tempTestArray = new ArrayList<>();
+        List<Person> tempTestArray = new ArrayList<Person>(peopleList.getList());
+        System.out.println(tempTestArray);
        
         int counter = 0;
         int groupCounter = 0;
+
+        while (!tempTestArray.isEmpty() && counter < 8){
+            //this leaves the original array of people intact and we use this temporary array as a copy of the original adding then removing items 0-7
+            //until the list is empty and all values have been removed, once the counter hits 8, a group is removed and the next one is begun to be filled
+            //we test as we go so once that group limit of 8 is hit, thats one test group and if there is a positive we break it down and so on as discussed earlier.
+        }
         
+        /*
         while((numberTestGroups >= 0) && (counter < peopleList.size()+1)){
             System.out.println(numberTestGroups + " >= 0");
             int temp = peopleList.size()+1;
@@ -195,7 +203,8 @@ public class SemesterProjectMain {
                  tempTestArray.clear();
                  numberTestGroups--;
              }
-        }//if        
+        }//while
+        */       
         
 
     }//test
