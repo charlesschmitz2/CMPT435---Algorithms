@@ -22,16 +22,14 @@ public class ListPeople {
 
     //Here I have set the infection rate to 2 by generating a random number btw 0-100 and if that number is less than 2 
     //then the person has covid dun dun dunnnnn hope he is quarantining
-    public void test(int infectionRate){
+    public void diseaseGiver(int infectionRate){
         for(int i = 0; i < people.size(); i++){
             Random r = new Random();
             int percentChanceGetSick = r.nextInt(100);
             if (percentChanceGetSick < infectionRate){
-                System.out.println("Person " + i + " is " + 1 + "--");
+                people.get(i).setIsSick(1);
             }
-            else{
-                System.out.println("Person " + i + " is " + 0);
-            }
+            
             //return testResult.nextInt((1-0)+0);
             
         }

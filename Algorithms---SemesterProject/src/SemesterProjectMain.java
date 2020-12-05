@@ -67,85 +67,115 @@ public class SemesterProjectMain {
     */
 
 
+    public static int menuSelection = 0;
+    public static int infectionRate = 2; //this represents a 2% infection rate
+    public static int infectedCounter = 0;
+
+    public static List<Person> people = new ArrayList<>();
+    public static ListPeople peopleList = new ListPeople(people);
     public static void main(String[] args) {
         
+        do{
+            System.out.println("\n-------------RUNNING SIMULATION--------------");
+        } while(runSimulation());
         
-        int menuSelection = 0;
-        List<Person> people = new ArrayList<>();
-        ListPeople peopleList = new ListPeople(people);
+            
 
-        int infectionRate = 2; //this represents a 2% infection rate
+        }// main
 
-        
+        public static boolean runSimulation(){
+
             menuSelection = menu();
 
             if (menuSelection == 1){
-                System.out.println("\nRunning Simulation with 100 People");
+                System.out.println("\n----Running Simulation with 100 People---- \n");
                 peopleList.addPeople(100);
-                peopleList.test(infectionRate);
-                //peopleList.print();
-                
-            }//if 100
-            else if (menuSelection == 2){
-                System.out.println("\nRunning Simulation with 1,000 People");
+                runInfection();
+                // peopleList.print();
+
+            } // if 100
+            else if (menuSelection == 2) {
+                System.out.println("\n----Running Simulation with 1,000 People---- \n");
                 peopleList.addPeople(1000);
-                //peopleList.print();
-                
-            }//if 1000
-            else if (menuSelection == 3){
-                System.out.println("\nRunning Simulation with 10,000 People");
+                runInfection();
+                // peopleList.print();
+
+            } // if 1000
+            else if (menuSelection == 3) {
+                System.out.println("\n----Running Simulation with 10,000 People----\n");
                 peopleList.addPeople(10000);
-                //peopleList.print();
-                
-            }//if 10000
-            else if (menuSelection == 4){
-                System.out.println("\nRunning Simulation with 100,000 People");
+                runInfection();
+                // peopleList.print();
+
+            } // if 10000
+            else if (menuSelection == 4) {
+                System.out.println("\n----Running Simulation with 100,000 People----\n");
                 peopleList.addPeople(100000);
-                //peopleList.print();
-                
-            }//if 1000000
-            else if (menuSelection == 5){
-                System.out.println("\nRunning Simulation with 1,000,000 People");
+                runInfection();
+                // peopleList.print();
+
+            } // if 1000000
+            else if (menuSelection == 5) {
+                System.out.println("\n----Running Simulation with 1,000,000 People----\n");
                 peopleList.addPeople(1000000);
-                //peopleList.print();
-                
-            }//if 10000000
+                runInfection();
+                // peopleList.print();
+
+            } // if 10000000
             else {
                 System.out.print("Quitting Program");
-            }//else quitting
+                return false;
+            } // else quitting
 
-        
-            
-        
-        
-    
-    }//main
+            return true;
 
-    public static int menu() {
+        }//runSimulation
 
-        int selection;
-        Scanner input = new Scanner(System.in);
+        public static int menu() {
 
-        /***************************************************/
+            int selection;
+            Scanner input = new Scanner(System.in);
 
-        System.out.println("\nChoose the AMOUNT OF PEOPLE the Simulation will be Run With :");
-        System.out.println("-------------------------\n");
-        System.out.println("1 - 100");
-        System.out.println("2 - 1,000");
-        System.out.println("3 - 10,000");
-        System.out.println("4 - 100,000");
-        System.out.println("5 - 1,000,000");
-        System.out.println("6 - Quit");
+            /***************************************************/
 
-        while (!input.hasNextInt()){
-            String scanner = input.next();
+            System.out.println("\nChoose the AMOUNT OF PEOPLE the Simulation will be Run With :");
+            System.out.println("1 - 100");
+            System.out.println("2 - 1,000");
+            System.out.println("3 - 10,000");
+            System.out.println("4 - 100,000");
+            System.out.println("5 - 1,000,000");
+            System.out.println("6 - Quit");
+
+            while (!input.hasNextInt()) {
+                String scanner = input.next();
                 System.out.print(" '" + scanner + "' is not a valid number.\n");
-        }//while
+            } // while
 
-        selection = input.nextInt();
-        input.close();
-        return selection;    
-    }//menu
+            selection = input.nextInt();
+            if(selection == 6){input.close();}
+            
+            return selection;
+        }// menu
+
+    public static void runInfection() {
+        peopleList.diseaseGiver(infectionRate);
+                for(int i = 0; i < peopleList.size(); i++){
+                    if (people.get(i).getIsSick()==1){
+                        if(peopleList.size()<=100000){System.out.println("\t\u2022 Person " + i + " has been infected");}
+                        infectedCounter++;
+                    }//if
+                    
+                }//for
+                
+                if(peopleList.size()>100000){System.out.println("1,000,000 is too many to print out around 20,000 'has been infected' messages");}
+
+                if (infectedCounter == 0){
+                    System.out.println("\tNo one was infected, unlikely but always possible...expect the unexpected");
+                }
+                else{
+                    System.out.println("\n-->" + infectedCounter + " people were infected\n\n");
+                }
+    }//runInfection
 
     //if time allows can adjust to work with different sized groups other than 8 may come back and implement later
     public static int menu2() {
