@@ -16,7 +16,8 @@ public class Person {
         }//setter
     
         public String toString(){
-                return ("Person " + this.isSick);
+            String s = Integer.toString(this.isSick);
+                return (s);
         }
 
 

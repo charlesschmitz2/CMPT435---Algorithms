@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class SemesterProjectMain {
 
     /* ----Project Goal----
@@ -174,40 +175,41 @@ public class SemesterProjectMain {
         //NOTE: while we may know which person is sick this is a simulation so we have to abide by these rules to get an accurate representation 
         //of how many tests are needed as there is no magic person node that marks people as sick or not sick that you can just summon up.
 
-        double numberTestGroups = Math.ceil((float) peopleList.size()/8); 
-        List<Person> tempTestArray = new ArrayList<Person>(peopleList.getList());
-        System.out.println(tempTestArray);
-       
-        int counter = 0;
-        int groupCounter = 0;
+        double numberTestGroups = Math.ceil((float) peopleList.size()/8);        
 
-        while (!tempTestArray.isEmpty() && counter < 8){
-            //this leaves the original array of people intact and we use this temporary array as a copy of the original adding then removing items 0-7
-            //until the list is empty and all values have been removed, once the counter hits 8, a group is removed and the next one is begun to be filled
-            //we test as we go so once that group limit of 8 is hit, thats one test group and if there is a positive we break it down and so on as discussed earlier.
-        }
-        
-        /*
-        while((numberTestGroups >= 0) && (counter < peopleList.size()+1)){
-            System.out.println(numberTestGroups + " >= 0");
-            int temp = peopleList.size()+1;
-            System.out.println(counter + " < " + temp);
-             if(tempTestArray.size() < 8){
-                 System.out.println("Adding to test group " + numberTestGroups + " item number " + groupCounter);
-                 groupCounter++;
-                 counter++;
-                 tempTestArray.add(people.get(counter));                 
-             }//if
-             else if (tempTestArray.size() == 8){
-                 System.out.println(tempTestArray);
-                 tempTestArray.clear();
-                 numberTestGroups--;
-             }
-        }//while
-        */       
+        //here I split up our list of people into groups of the specified group size and print them out using parts
+        //parts represents a list of list, each sublist being a test group
+        System.out.println("--Splitting Group into " + numberTestGroups + "--");
+        List<List<Person>> parts = chopped(peopleList.getList(), 8);
+        for (List<Person> list : parts) { 
+            if(peopleList.size() <= 1000){System.out.print(" [");} 
+  
+            for (Person person : list) { 
+                if(peopleList.size() <= 1000){ System.out.print(" " + person + ","); //too many console print statements if doing anything bigger than 1000
+                }
+                //Compute if they are sick, then we send that to another method where they are split down and tested and our test counter will be 
+                //incremented.
+                if(person.getIsSick() == 1){
+                    //System.out.print("SICK");
+                } 
+            } 
+            if(peopleList.size() <= 1000){System.out.println("] ");} 
+        } 
         
 
     }//test
+
+     // chops a list into non-view sublists of length L
+    public static <T> List<List<T>> chopped(List<T> list, final int L) {
+        List<List<T>> parts = new ArrayList<List<T>>();
+        final int N = list.size();
+        for (int i = 0; i < N; i += L) {
+            parts.add(new ArrayList<T>(
+                list.subList(i, Math.min(N, i + L)))
+            );
+        }
+        return parts;
+    }
 
     public static int menu() {
 
