@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 public class SemesterProjectMain {
 
     /* ----Project Goal----
@@ -64,6 +69,102 @@ public class SemesterProjectMain {
 
     public static void main(String[] args) {
         
+        
+        int menuSelection = 0;
+        List<Person> people = new ArrayList<>();
+        ListPeople peopleList = new ListPeople(people);
+
+        int infectionRate = 2; //this represents a 2% infection rate
+
+        
+            menuSelection = menu();
+
+            if (menuSelection == 1){
+                System.out.println("\nRunning Simulation with 100 People");
+                peopleList.addPeople(100);
+                peopleList.test(infectionRate);
+                //peopleList.print();
+                
+            }//if 100
+            else if (menuSelection == 2){
+                System.out.println("\nRunning Simulation with 1,000 People");
+                peopleList.addPeople(1000);
+                //peopleList.print();
+                
+            }//if 1000
+            else if (menuSelection == 3){
+                System.out.println("\nRunning Simulation with 10,000 People");
+                peopleList.addPeople(10000);
+                //peopleList.print();
+                
+            }//if 10000
+            else if (menuSelection == 4){
+                System.out.println("\nRunning Simulation with 100,000 People");
+                peopleList.addPeople(100000);
+                //peopleList.print();
+                
+            }//if 1000000
+            else if (menuSelection == 5){
+                System.out.println("\nRunning Simulation with 1,000,000 People");
+                peopleList.addPeople(1000000);
+                //peopleList.print();
+                
+            }//if 10000000
+            else {
+                System.out.print("Quitting Program");
+            }//else quitting
+
+        
+            
+        
+        
+    
     }//main
+
+    public static int menu() {
+
+        int selection;
+        Scanner input = new Scanner(System.in);
+
+        /***************************************************/
+
+        System.out.println("\nChoose the AMOUNT OF PEOPLE the Simulation will be Run With :");
+        System.out.println("-------------------------\n");
+        System.out.println("1 - 100");
+        System.out.println("2 - 1,000");
+        System.out.println("3 - 10,000");
+        System.out.println("4 - 100,000");
+        System.out.println("5 - 1,000,000");
+        System.out.println("6 - Quit");
+
+        while (!input.hasNextInt()){
+            String scanner = input.next();
+                System.out.print(" '" + scanner + "' is not a valid number.\n");
+        }//while
+
+        selection = input.nextInt();
+        input.close();
+        return selection;    
+    }//menu
+
+    //if time allows can adjust to work with different sized groups other than 8 may come back and implement later
+    public static int menu2() {
+
+        int selection;
+        Scanner input = new Scanner(System.in);
+
+        /***************************************************/
+
+        System.out.println("Choose the GROUP SIZE the Simulation will be Run With :");
+        System.out.println("-------------------------\n");
+        System.out.println("1 - 4 Groups");
+        System.out.println("2 - 6 Groups");
+        System.out.println("3 - 8 Groups");
+        System.out.println("4 - Quit");
+
+        selection = input.nextInt();
+        input.close();
+        return selection;    
+    }
 
 }//SemesterProjectMain
