@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,11 +69,13 @@ public class SemesterProjectMain {
     public static int menuSelection = 0;
     public static int infectionRate = 2; //this represents a 2% infection rate
     public static int infectedCounter = 0;
+    public static int groupSize = 8; //this is our default size that we are running for this project, could adjust if desired
 
     public static List<Person> people = new ArrayList<>();
     public static ListPeople peopleList = new ListPeople(people);
     public static void main(String[] args) {
         
+        //Run the simulation until you quit
         do{
             System.out.println("\n-------------RUNNING SIMULATION--------------");
         } while(runSimulation());
@@ -83,15 +84,17 @@ public class SemesterProjectMain {
 
         }// main
 
+        //This is the function where the simulation is run and analized 
         public static boolean runSimulation(){
 
             menuSelection = menu();
 
             if (menuSelection == 1){
                 System.out.println("\n----Running Simulation with 100 People---- \n");
-                peopleList.addPeople(100);
+                peopleList.addPeople(100); //each time an addPeople is run the list is cleared and refilled so the program can run multiple cycles of differnet simulation sizes
                 runInfection();
-                // peopleList.print();
+                
+                //peopleList.print();
 
             } // if 100
             else if (menuSelection == 2) {
@@ -158,7 +161,7 @@ public class SemesterProjectMain {
         }// menu
 
     public static void runInfection() {
-        peopleList.diseaseGiver(infectionRate);
+        peopleList.diseaseGiver(infectionRate);//this is the function that infects people at the infection rate that is set (2% for us)
                 for(int i = 0; i < peopleList.size(); i++){
                     if (people.get(i).getIsSick()==1){
                         if(peopleList.size()<=100000){System.out.println("\t\u2022 Person " + i + " has been infected");}
@@ -176,6 +179,15 @@ public class SemesterProjectMain {
                     System.out.println("\n-->" + infectedCounter + " people were infected\n\n");
                 }
     }//runInfection
+
+    public static void test() {
+        //break each sample size up into groups of groupSize (8 default), then test 
+        //if we get EVEN ONE positive test in the sample we need to break that group of 8 into 2 groups of 4
+        //test each group and if there is EVEN ONE positive test within that group then we then
+        //test each one of those 4 people and we tally up the total amount of tests needed to get through the entire group 
+        //NOTE: while we may know which person is sick this is a simulation so we have to abide by these rules to get an accurate representation 
+        //of how many tests are needed as there is no magic person node that marks people as sick or not sick that you can just summon up.
+    }
 
     //if time allows can adjust to work with different sized groups other than 8 may come back and implement later
     public static int menu2() {

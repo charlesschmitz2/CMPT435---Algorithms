@@ -1,4 +1,3 @@
-import java.util.Random;
 
 public class Person {
     
@@ -15,6 +14,10 @@ public class Person {
         public void setIsSick(int maybeGotCovid){
             this.isSick = maybeGotCovid;
         }//setter
+    
+        public String toString(){
+                return ("Person " + this.isSick);
+        }
 
 
 

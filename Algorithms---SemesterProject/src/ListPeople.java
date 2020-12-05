@@ -50,7 +50,7 @@ public class ListPeople {
     public void print(){
         if(!people.isEmpty()){
             for(int i = 0; i < people.size(); i++)
-                System.out.println(i);
+                System.out.println(people.get(i));
         }//if
 
     }
