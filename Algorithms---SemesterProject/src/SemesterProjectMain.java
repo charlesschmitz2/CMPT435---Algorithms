@@ -70,25 +70,31 @@ public class SemesterProjectMain {
     public static int menuSelection = 0;
     public static int infectionRate = 2; //this represents a 2% infection rate
     public static int infectedCounter = 0;
-    public static int groupSize = 4; //this is our default size that we are running for this project, could adjust if desired
+    public static int groupSize = 8; //this is our default size that we are running for this project, could adjust if desired
     public static int numTests = 0;
+    public static int numPeople = 1000;
 
-    public static List<Person> people = new ArrayList<>();
+    public static List<Person> people = new ArrayList<>(1000);
     public static ListPeople peopleList = new ListPeople(people);
     
 /*----Main----*/
     public static void main(String[] args) {
 
         System.out.println("\n\nHello & Welcome to my Pooled Testing Simulation : ");
-        System.out.println("\tInformational output will be provided along the journey, you may continue to keep running the simulation with varying");
-        System.out.println("\ttest numbers so once you have finished press '7' to quit. You may alter the number of people the simulation is performed on,");
-        System.out.println("\tas well as the group size that these individuals are split into when testing. For this project the default is set to group sizes of 8,");
-        System.out.println("\tbut can be altered if desired by pressing '6' within our menu selection. I hope you find my method of testing satisfactory.");
+        System.out.println("\n\tInformational output will be provided along the journey, you may continue to keep running the simulation with varying");
+        System.out.println("\ttest numbers so once you have finished press '8' to quit. You may alter the number of people the simulation is performed on,");
+        System.out.println("\tas well as the group size that these individuals are split into when testing. For this project the default is set to **group sizes of 8**,");
+        System.out.println("\tbut can be altered if desired by pressing '6' within our menu selection. **Default simulation size is 1,000** as well. I hope you find my method of testing satisfactory.");
+        System.out.println("\tAlso please note that our **infection rate of this disease is 2%**, you can run this program with different infection rates but this must be changed within the code itself.");
+        System.out.println("\n\tPlease note that these test values are near or at the expected values, I do not list the expected within this program as that is detailed within");
+        System.out.println("\tmy LaTeX documentation found on Github. By running the program multiple times and averaging the actual results you can match the expected values.");
         System.out.println("\nStay safe and enjoy!");
         
         //Run the simulation until you quit
         do{
             System.out.println("\n-------------RUNNING SIMULATION--------------");
+            System.out.println("CURRENT SIMULATION SIZE : " + numPeople);
+            System.out.println("CURRENT GROUP SIZE : " + groupSize);
             
         } while(runSimulation());
         
@@ -104,53 +110,65 @@ public class SemesterProjectMain {
             infectedCounter = 0;
             numTests = 0;
 
+
             if (menuSelection == 1){
                 System.out.println("\n----Running Simulation with 100 People---- \n");
-                peopleList.addPeople(100); //each time an addPeople is run the list is cleared and refilled so the program can run multiple cycles of differnet simulation sizes
+                numPeople = 100;
+                peopleList.addPeople(numPeople); //each time an addPeople is run the list is cleared and refilled so the program can run multiple cycles of differnet simulation sizes
+                System.out.println("\n----The Infection has Begun to Spread---- \n");
                 runInfection();
                 test();
-                System.out.print("\nNumber of Tests Given : " + numTests);
+                System.out.print("\n \u2022--> Number of Tests Given : " + numTests + " <--\u2022\n");
                 //peopleList.print();
 
             } // if 100
             else if (menuSelection == 2) {
                 System.out.println("\n----Running Simulation with 1,000 People---- \n");
-                peopleList.addPeople(1000);
+                numPeople = 1000;
+                peopleList.addPeople(numPeople);
+                System.out.println("\n----The Infection has Begun to Spread---- \n");
                 runInfection();
                 test();
-                System.out.print("\nNumber of Tests Given : " + numTests);
+                System.out.print("\n\u2022--> Number of Tests Given : " + numTests + " <--\u2022\n");
                 // peopleList.print();
 
             } // if 1000
             else if (menuSelection == 3) {
                 System.out.println("\n----Running Simulation with 10,000 People----\n");
-                peopleList.addPeople(10000);
+                numPeople = 10000;
+                peopleList.addPeople(numPeople);
+                System.out.println("\n----The Infection has Begun to Spread---- \n");
                 runInfection();
                 test();
-                System.out.print("\nNumber of Tests Given : " + numTests);
+                System.out.print("\n\u2022--> Number of Tests Given : " + numTests + " <--\u2022\n");
                 // peopleList.print();
 
             } // if 10000
             else if (menuSelection == 4) {
                 System.out.println("\n----Running Simulation with 100,000 People----\n");
-                peopleList.addPeople(100000);
+                numPeople = 100000;
+                peopleList.addPeople(numPeople);
+                System.out.println("\n----The Infection has Begun to Spread---- \n");
                 runInfection();
                 test();
-                System.out.print("\nNumber of Tests Given : " + numTests);
+                System.out.print("\n\u2022--> Number of Tests Given : " + numTests + " <--\u2022\n");
                 // peopleList.print();
 
             } // if 1000000
             else if (menuSelection == 5) {
                 System.out.println("\n----Running Simulation with 1,000,000 People----\n");
-                peopleList.addPeople(1000000);
+                numPeople = 1000000;
+                peopleList.addPeople(numPeople);
+                System.out.println("\n----The Infection has Begun to Spread---- \n");
                 runInfection();
                 test();
-                System.out.print("\nNumber of Tests Given : " + numTests);
+                System.out.print("\n\u2022--> Number of Tests Given : " + numTests + " <--\u2022\n");
                 // peopleList.print();
 
             } // if 10000000
             else if(menuSelection == 6){
                 menu2();
+                return true;
             }//if want to change the group size
             else {
                 System.out.print("Quitting Program, please come again!");
@@ -292,7 +310,8 @@ public class SemesterProjectMain {
         System.out.println("4 - 100,000");
         System.out.println("5 - 1,000,000");
         System.out.println("6 - Change Testing Group Size");
-        System.out.println("7 - Quit");
+        System.out.println("7 - Run with Default Settings");
+        System.out.println("8 - Quit");
 
         while (!input.hasNextInt()) {
             String scanner = input.next();
@@ -300,7 +319,8 @@ public class SemesterProjectMain {
         } // while
 
         selection = input.nextInt();
-        if(selection == 6){input.close();}
+        if(selection == 8){input.close();}
+        if(selection == 7){selection = 2; groupSize = 8;}
         
         return selection;
     }// menu
@@ -309,7 +329,7 @@ public class SemesterProjectMain {
     public static void menu2() {
 
         int selection;
-        Scanner input = new Scanner(System.in);
+        Scanner input2 = new Scanner(System.in);
 
         /***************************************************/
 
@@ -321,27 +341,38 @@ public class SemesterProjectMain {
         System.out.println("5 - 32 Groups");
         System.out.println("6 - Quit");
 
-        selection = input.nextInt();
-        input.close();
-        
-        if(selection == 1) {
+   
+        while (!input2.hasNextInt()) {
+            String scanner = input2.next();
+            System.out.print(" '" + scanner + "' is not a valid number.\n");
+        } // while
 
+        selection = input2.nextInt();
+        
+        //Processing choice here as it is a submenu and want to keep main cleaner and for our main menu
+        if(selection == 1) {
+            groupSize = 4;
         }
         if(selection == 2) {
-            
+            groupSize = 6;
         }
         if(selection == 3) {
-            
+            groupSize = 8;
         }
         if(selection == 4) {
-            
+            groupSize = 16;
         }
         if(selection == 5) {
-            
+            groupSize = 32;
         }
         if(selection == 6) {
-            
+            System.out.println("Group Size Remains the Same");
+            //input2.close();
         }
+
+        System.out.println("Rerunning Simulation Program with new group size");
+
+
     }
 
 }//SemesterProjectMain
