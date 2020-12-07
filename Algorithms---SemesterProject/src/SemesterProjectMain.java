@@ -71,6 +71,7 @@ public class SemesterProjectMain {
     public static int infectionRate = 2; //this represents a 2% infection rate
     public static int infectedCounter = 0;
     public static int groupSize = 8; //this is our default size that we are running for this project, could adjust if desired
+    public static int numTests = 0;
 
     public static List<Person> people = new ArrayList<>();
     public static ListPeople peopleList = new ListPeople(people);
@@ -175,41 +176,94 @@ public class SemesterProjectMain {
         //NOTE: while we may know which person is sick this is a simulation so we have to abide by these rules to get an accurate representation 
         //of how many tests are needed as there is no magic person node that marks people as sick or not sick that you can just summon up.
 
-        double numberTestGroups = Math.ceil((float) peopleList.size()/8);        
+        double numberTestGroups = Math.ceil((float) peopleList.size()/groupSize);        
 
         //here I split up our list of people into groups of the specified group size and print them out using parts
         //parts represents a list of list, each sublist being a test group
+
+        /* PLAN : 
+        IF Infection found
+            split into two list
+            IF one group shows infection AND the other does not
+                test all members of the infect group and the other group is clear
+            ELSE both groups show infection
+                test all members of both groups 
+        ELSE 
+            done with 1 test
+        */
+
         System.out.println("--Splitting Group into " + numberTestGroups + "--");
-        List<List<Person>> parts = chopped(peopleList.getList(), 8);
+        List<List<Person>> parts = chopped(peopleList.getList(), groupSize); //set groupSize above 
         for (List<Person> list : parts) { 
             if(peopleList.size() <= 1000){System.out.print(" [");} 
   
             for (Person person : list) { 
-                if(peopleList.size() <= 1000){ System.out.print(" " + person + ","); //too many console print statements if doing anything bigger than 1000
-                }
+                if(peopleList.size() <= 1000){ System.out.print(" " + person + ",");} //too many console print statements if doing anything bigger than 1000
+                
                 //Compute if they are sick, then we send that to another method where they are split down and tested and our test counter will be 
                 //incremented.
                 if(person.getIsSick() == 1){
-                    //System.out.print("SICK");
-                } 
-            } 
+                   List<List<Person>> splitList = new ArrayList<>();
+                   splitList = split(list);
+
+                   for(int i = 0; i < splitList.size(); i++){
+                        performTest(); //test the two split lists
+                   }//for
+
+                   for (List<Person> listSubGroup : splitList){
+                       for(Person personSubGroup : listSubGroup){
+                            if(personSubGroup.getIsSick() == 1){
+                                //test all of the people in that subgroup group for each subgroup that is found to have a sick person
+                                for(int i = 0; i < listSubGroup.size(); i++){
+                                    performTest();
+                                }
+                            }
+                       }//for
+                   }//for
+                   
+                   
+                   
+                } //if
+            } //for
             if(peopleList.size() <= 1000){System.out.println("] ");} 
-        } 
+        } //for
         
 
     }//test
 
-     // chops a list into non-view sublists of length L
+     // chops a list into non-view sublists of length L, these represent our testing groups since we are passing it our List of person objects and the number that we want the list to be chopped into
     public static <T> List<List<T>> chopped(List<T> list, final int L) {
         List<List<T>> parts = new ArrayList<List<T>>();
         final int N = list.size();
         for (int i = 0; i < N; i += L) {
-            parts.add(new ArrayList<T>(
-                list.subList(i, Math.min(N, i + L)))
-            );
-        }
+            parts.add(new ArrayList<T>(list.subList(i, Math.min(N, i + L))));
+        }//for
         return parts;
+    }//chopped
+
+    // Generic function to split a list into two sublists in Java
+    public static <T> List<List<T>> split(List<T> list)
+    {
+        List<List<T>> splitInTwo = new ArrayList<List<T>>();
+
+        // get size of the list
+        int size = list.size();
+    
+        // construct new list from the returned view by list.subList() method
+        List<T> first = new ArrayList<>(list.subList(0, (size + 1)/2));
+        List<T> second = new ArrayList<>(list.subList((size + 1)/2, size));
+    
+        // return a List array to accommodate both lists
+        splitInTwo.add(first);
+        splitInTwo.add(second);
+
+        return splitInTwo;
     }
+
+    //simply keeps track of how many tests have been given
+    public static void performTest(){
+        numTests++;
+    }//performTest
 
     public static int menu() {
 
